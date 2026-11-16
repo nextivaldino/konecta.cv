@@ -22,10 +22,10 @@ export default function Home() {
 
         <a
           href="/admin"
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border-2 border-black bg-white text-xs font-bold shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border-2 border-black bg-white text-xs font-extrabold uppercase tracking-wide shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all"
         >
           <span>Admin</span>
-          <ArrowUpRight size={13} />
+          <ArrowUpRight size={14} />
         </a>
       </header>
 
@@ -42,10 +42,10 @@ export default function Home() {
           onClick={() => setIsModalOpen(true)}
           whileHover={{ scale: 1.04, y: -2 }}
           whileTap={{ scale: 0.96, y: 2 }}
-          className="flex items-center gap-3 px-9 py-4 rounded-[14px] bg-[#A2E435] border-[3px] border-black text-black font-extrabold text-base uppercase tracking-wider shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"
+          className="flex items-center justify-center gap-4 px-12 py-5 min-h-[58px] rounded-[14px] bg-[#A2E435] border-[3px] border-black text-black font-extrabold text-base uppercase tracking-wider shadow-[5px_5px_0px_#000] hover:shadow-[7px_7px_0px_#000] active:shadow-[1px_1px_0px_#000] transition-all cursor-pointer"
         >
-          <span className="w-3 h-3 rounded-full border-2 border-black bg-[#FFD027] animate-bounce" />
-          <span>Konecta-te Agora →</span>
+          <span className="w-3 h-3 self-center rounded-full border-2 border-black bg-[#FFD027] animate-bounce flex-shrink-0" />
+          <span className="leading-none">Konecta-te Agora →</span>
         </motion.button>
       </div>
 

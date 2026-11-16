@@ -235,7 +235,7 @@ export default function AdminPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="admin@konecta.cv"
-                  className="w-full h-11 pl-10 pr-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                  className="w-full h-12 pl-10 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function AdminPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full h-11 pl-3.5 pr-10 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                  className="w-full h-12 pl-4 pr-10 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                   autoFocus
                 />
                 <Lock size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
@@ -261,7 +261,7 @@ export default function AdminPage() {
               <button
                 type="submit"
                 disabled={loginLoading}
-                className="w-full py-3.5 px-4 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
               >
                 {loginLoading ? 'A verificar...' : 'Entrar no Painel →'}
               </button>
@@ -329,7 +329,7 @@ export default function AdminPage() {
           <button
             onClick={() => fetchData(token)}
             disabled={loading}
-            className="flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
             <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
             <span className="hidden sm:inline">Atualizar</span>
@@ -341,7 +341,7 @@ export default function AdminPage() {
               setToken('')
               setData(null)
             }}
-            className="flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-xl bg-[#E2442F] text-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-[#E2442F] text-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
             <LogOut size={13} />
             <span>Sair</span>
@@ -376,7 +376,7 @@ export default function AdminPage() {
 
           <a
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FFD027] border-2 border-black rounded-xl text-xs font-black uppercase shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFD027] border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
           >
             <span>Ver Landing Page</span>
             <ArrowUpRight size={14} />
@@ -418,16 +418,16 @@ export default function AdminPage() {
         )}
 
         {/* Neo-Brutalist Tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2.5 overflow-x-auto pb-1">
           {tabs.map(tab => {
             const isActive = activeTab === tab.id
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${isActive ? 'bg-black text-white shadow-[3px_3px_0px_' + tab.color + ']' : 'bg-white text-black shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4]'}`}
+                className={`flex items-center justify-center gap-2.5 min-h-[46px] px-6 py-3 rounded-xl border-2 border-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${isActive ? 'bg-black text-white shadow-[3px_3px_0px_' + tab.color + ']' : 'bg-white text-black shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4]'}`}
               >
-                <tab.icon size={14} />
+                <tab.icon size={15} />
                 <span>{tab.label}</span>
               </button>
             )
@@ -447,7 +447,7 @@ export default function AdminPage() {
                   placeholder="Pesquisar por nome, telefone ou ilha..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full bg-white border-2 border-black pl-10 pr-4 py-2 text-xs font-semibold rounded-xl text-black placeholder-[#78716C] outline-none shadow-[2px_2px_0px_#000]"
+                  className="w-full h-11 bg-white border-2 border-black pl-10 pr-4 text-xs font-semibold rounded-xl text-black placeholder-[#78716C] outline-none shadow-[2px_2px_0px_#000]"
                 />
               </div>
 
@@ -456,7 +456,7 @@ export default function AdminPage() {
                 <select
                   value={filterIsland}
                   onChange={e => setFilterIsland(e.target.value)}
-                  className="bg-white border-2 border-black text-xs font-bold rounded-xl px-4 py-2 text-black outline-none shadow-[2px_2px_0px_#000] cursor-pointer"
+                  className="h-11 bg-white border-2 border-black text-xs font-bold rounded-xl px-4 text-black outline-none shadow-[2px_2px_0px_#000] cursor-pointer"
                 >
                   <option value="ALL">Todas as Ilhas</option>
                   <option value="Santiago">Santiago</option>

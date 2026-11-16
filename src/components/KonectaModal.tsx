@@ -208,14 +208,14 @@ export default function KonectaModal({
                 <div className="flex flex-col gap-3">
                   <button
                     onClick={() => setStep('form')}
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     Sim, Konecta-me! 🚀
                   </button>
 
                   <button
                     onClick={handleClose}
-                    className="w-full py-2.5 px-4 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase text-[#78716C] hover:bg-[#F5F5F4] transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[44px] py-3.5 px-8 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase tracking-wide text-[#78716C] hover:bg-[#F5F5F4] transition-all cursor-pointer"
                   >
                     Agora não
                   </button>
@@ -235,7 +235,7 @@ export default function KonectaModal({
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="Ex: Manuel Silva"
-                    className="w-full h-11 px-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
                     autoFocus
                   />
                 </div>
@@ -249,7 +249,7 @@ export default function KonectaModal({
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     placeholder="Ex: 9912345"
-                    className="w-full h-11 px-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
                   />
                 </div>
 
@@ -261,7 +261,7 @@ export default function KonectaModal({
                   <button
                     type="button"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full h-11 px-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm flex items-center justify-between shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5] transition-all cursor-pointer text-left"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm flex items-center justify-between shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5] transition-all cursor-pointer text-left"
                   >
                     <div className="flex items-center gap-2">
                       {currentIslandObj ? (
@@ -331,7 +331,7 @@ export default function KonectaModal({
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#FFD027] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#FFD027] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     Continuar →
                   </button>
@@ -355,7 +355,7 @@ export default function KonectaModal({
                 <div className="flex flex-col gap-2.5">
                   <button
                     onClick={() => setStep('profile_form')}
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#B286FD] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#B286FD] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     ✨ Sim, Criar Meu Perfil
                   </button>
@@ -363,7 +363,7 @@ export default function KonectaModal({
                   <button
                     onClick={() => handleFinalSubmit(false)}
                     disabled={loading}
-                    className="w-full py-3 px-4 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase tracking-wide shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4] transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[46px] py-3.5 px-8 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase tracking-wide shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4] transition-all cursor-pointer"
                   >
                     {loading ? 'A guardar...' : 'Apenas Entrar na Lista'}
                   </button>
@@ -396,7 +396,7 @@ export default function KonectaModal({
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="teuemail@exemplo.cv"
-                      className="w-full h-11 pl-10 pr-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                     />
                   </div>
                 </div>
@@ -412,7 +412,7 @@ export default function KonectaModal({
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       placeholder="Mínimo 6 caracteres"
-                      className="w-full h-11 pl-10 pr-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                      className="w-full h-12 pl-10 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                     />
                   </div>
                 </div>
@@ -421,7 +421,7 @@ export default function KonectaModal({
                   <button
                     onClick={() => handleFinalSubmit(true)}
                     disabled={loading}
-                    className="w-full py-3.5 px-4 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     {loading ? 'A processar...' : 'Finalizar & Konectar! 🎉'}
                   </button>
@@ -448,7 +448,7 @@ export default function KonectaModal({
 
                 <button
                   onClick={handleClose}
-                  className="mt-3 w-full py-3 px-4 rounded-xl bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#FFD027] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+                  className="mt-3 w-full flex items-center justify-center min-h-[48px] py-3.5 px-8 rounded-xl bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#FFD027] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
                 >
                   Concluir
                 </button>

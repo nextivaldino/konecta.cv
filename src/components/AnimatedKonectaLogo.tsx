@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion'
 
 /**
- * Animated Logo for Konecta.cv — Neo-Brutalism Clean Edition
- * Pure vector paths with clean black outlines, electric yellow fill on the K accent,
- * crisp white & black letters, and NO shadow layers.
+ * Animated Logo for Konecta.cv — Neo-Brutalism Fluid Line Edition
+ * Natural line-drawing transition where lines fluidly trace the geometry,
+ * seamlessly blooming into rich colors, holding proudly in full clarity,
+ * and transitioning softly in a calm, elegant loop.
  */
 
 export default function AnimatedKonectaLogo({ className = '' }: { className?: string }) {
@@ -29,14 +30,16 @@ export default function AnimatedKonectaLogo({ className = '' }: { className?: st
   const tPath =
     'M2562.085 584.978 C2511.755 584.978 2472.736 571.379 2445.029 544.18 C2417.322 516.982 2403.468 478.98 2403.468 430.175 L2403.468 263.169 L2333.311 263.169 L2333.311 164.034 L2337.124 164.034 C2358.476 164.034 2374.872 158.696 2386.31 148.02 C2397.749 137.343 2403.468 121.329 2403.468 99.977 L2403.468 69.474 L2517.856 57.384 L2517.856 164.034 L2615.466 164.034 L2615.466 263.169 L2517.856 263.169 L2517.856 422.549 C2517.856 436.784 2520.398 448.604 2525.481 458.009 C2530.565 467.414 2538.445 474.404 2549.121 478.98 C2559.798 483.555 2573.016 485.843 2588.776 485.843 C2592.334 485.843 2596.402 485.589 2600.977 485.08 C2605.552 484.572 2610.382 484.064 2615.466 483.555 L2615.466 580.403 C2607.84 581.42 2599.198 582.437 2589.538 583.453 C2579.879 584.47 2570.728 584.978 2562.085 584.978 Z'
 
+  // Master timeline orchestration: Each element draws sequentially,
+  // then fills smoothly bloom together, holding stably, and fading softly.
   const elements = [
-    { id: 'bar', d: barPath, color: '#A2E435', strokeColor: '#000000' },
-    { id: 'curve', d: curvePath, color: '#FFFFFF', strokeColor: '#000000' },
-    { id: 'o', d: oPath, color: '#000000', strokeColor: '#000000' },
-    { id: 'n', d: nPath, color: '#000000', strokeColor: '#000000' },
-    { id: 'e', d: ePath, color: '#000000', strokeColor: '#000000' },
-    { id: 'c', d: cPath, color: '#000000', strokeColor: '#000000' },
-    { id: 't', d: tPath, color: '#000000', strokeColor: '#000000' },
+    { id: 'bar', d: barPath, color: '#A2E435', strokeColor: '#000000', start: 0.00, end: 0.22 },
+    { id: 'curve', d: curvePath, color: '#FFFFFF', strokeColor: '#000000', start: 0.04, end: 0.26 },
+    { id: 'o', d: oPath, color: '#000000', strokeColor: '#000000', start: 0.08, end: 0.29 },
+    { id: 'n', d: nPath, color: '#000000', strokeColor: '#000000', start: 0.12, end: 0.32 },
+    { id: 'e', d: ePath, color: '#000000', strokeColor: '#000000', start: 0.16, end: 0.35 },
+    { id: 'c', d: cPath, color: '#000000', strokeColor: '#000000', start: 0.20, end: 0.38 },
+    { id: 't', d: tPath, color: '#000000', strokeColor: '#000000', start: 0.24, end: 0.41 },
   ]
 
   return (
@@ -46,31 +49,36 @@ export default function AnimatedKonectaLogo({ className = '' }: { className?: st
         className="w-full h-auto overflow-visible select-none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {elements.map((el, i) => (
-          <motion.path
-            key={el.id}
-            d={el.d}
-            stroke={el.strokeColor}
-            strokeWidth={14}
-            strokeLinecap="square"
-            strokeLinejoin="miter"
-            animate={{
-              pathLength: [0, 1, 1, 1, 0, 0],
-              strokeOpacity: [0.5, 1, 1, 1, 0.4, 0.5],
-              fillOpacity: [0, 0, 1, 1, 0, 0],
-            }}
-            style={{
-              fill: el.color,
-            }}
-            transition={{
-              duration: 5.2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              times: [0, 0.35, 0.5, 0.8, 0.95, 1],
-              delay: i * 0.1,
-            }}
-          />
-        ))}
+        {elements.map((el) => {
+          // Precise keyframe times shared by all elements in a single synchronized 6.5s cycle:
+          // [0: reset, start: begins drawing, end: finished drawing, 0.45: stroke hold, 0.55: color fill bloom, 0.82: showcase hold, 0.94: gentle fade, 1.0: clean reset]
+          const times = [0, el.start, el.end, 0.44, 0.55, 0.82, 0.94, 1.0]
+
+          return (
+            <motion.path
+              key={el.id}
+              d={el.d}
+              stroke={el.strokeColor}
+              strokeWidth={16}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              animate={{
+                pathLength: [0, 0, 1, 1, 1, 1, 1, 0],
+                strokeOpacity: [0, 0.85, 1, 1, 1, 1, 0, 0],
+                fillOpacity: [0, 0, 0, 0, 1, 1, 0, 0],
+              }}
+              style={{
+                fill: el.color,
+              }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                times: times,
+              }}
+            />
+          )
+        })}
       </svg>
     </div>
   )

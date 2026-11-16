@@ -194,20 +194,81 @@ export default function KonectaModal({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
-          {/* Backdrop with clean blur */}
+          {/* Backdrop with clean blur + animated drawing lines of the K logo in the blue background */}
           <motion.div
-            className="absolute inset-0"
+            className="absolute inset-0 overflow-hidden"
             style={{
-              background: 'rgba(0,4,30,0.65)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
+              background: 'rgba(0, 4, 30, 0.70)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
             onClick={handleClose}
-          />
+          >
+            {/* Linhas desenhando a logo continuamente no fundo azul enquanto o card está aberto */}
+            <div
+              className="absolute inset-0 pointer-events-none flex items-center justify-center select-none"
+              style={{ opacity: 0.22 }}
+            >
+              <svg
+                width="640"
+                height="640"
+                viewBox="0 0 436.752 665.228"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                  transform: 'scale(1.25)',
+                  filter: 'drop-shadow(0 0 40px rgba(222,224,84,0.35))',
+                }}
+              >
+                {/* Linha desenhando a barra vertical */}
+                <motion.path
+                  d="M0 0 L144.634 0 L144.634 586.476 L0 586.476 Z"
+                  stroke="#dee054"
+                  strokeWidth={12}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ fill: '#dee054' }}
+                  animate={{
+                    pathLength: [0, 1, 1, 1, 0, 0],
+                    strokeOpacity: [0.2, 1, 1, 0.6, 0.1, 0.2],
+                    fillOpacity: [0, 0, 0.25, 0.25, 0, 0],
+                  }}
+                  transition={{
+                    duration: 4.8,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    times: [0, 0.4, 0.55, 0.8, 0.95, 1],
+                  }}
+                />
+
+                {/* Linha desenhando o arco do K */}
+                <motion.path
+                  d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
+                  stroke="#efefef"
+                  strokeWidth={12}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ fill: '#efefef' }}
+                  animate={{
+                    pathLength: [0, 1, 1, 1, 0, 0],
+                    strokeOpacity: [0.2, 1, 1, 0.6, 0.1, 0.2],
+                    fillOpacity: [0, 0, 0.2, 0.2, 0, 0],
+                  }}
+                  transition={{
+                    duration: 4.8,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    times: [0, 0.4, 0.55, 0.8, 0.95, 1],
+                    delay: 0.18,
+                  }}
+                />
+              </svg>
+            </div>
+          </motion.div>
 
           {/* Card - flat, minimal/no shadow, 50% reduced border-radius (14px) */}
           <motion.div

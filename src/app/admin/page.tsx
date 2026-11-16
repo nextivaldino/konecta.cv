@@ -109,19 +109,21 @@ export default function AdminPage() {
           }}
         />
 
-        {/* Card Login - Google Material You Surface Card */}
+        {/* Card Login - Google Material You Surface Card com respiro e layout equilibrado */}
         <div
-          className="relative z-10 w-full max-w-[420px] p-8 sm:p-10 border border-white/15"
+          className="relative z-10 w-full border border-white/10"
           style={{
-            borderRadius: '28px', // Material 3 large container
-            background: '#0d1333',
-            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.45)',
+            maxWidth: 390,
+            borderRadius: 24,
+            background: '#0a0e26',
+            padding: '36px 32px 32px',
+            boxSizing: 'border-box',
           }}
         >
-          <div className="flex flex-col items-center text-center mb-8">
-            {/* Logo K minimalista */}
-            <div className="mb-4 p-3 rounded-2xl bg-white/[0.04] border border-white/10">
-              <svg width="28" height="40" viewBox="0 0 436.752 665.228" fill="none">
+          {/* Top Logo */}
+          <div className="flex flex-col items-center text-center mb-7">
+            <div className="mb-4">
+              <svg width="24" height="36" viewBox="0 0 436.752 665.228" fill="none">
                 <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
                 <path
                   d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
@@ -130,8 +132,8 @@ export default function AdminPage() {
               </svg>
             </div>
 
-            <h1 className="text-2xl font-semibold tracking-tight text-[#f1f3f4]">Konecta Account</h1>
-            <p className="text-sm text-[#9aa0a6] mt-2">Painel de Controlo & Gestão de Acessos</p>
+            <h1 className="text-xl font-bold tracking-tight text-[#f1f3f4]">Konecta Account</h1>
+            <p className="text-xs text-[#9aa0a6] mt-1.5">Painel de Controlo & Gestão de Acessos</p>
           </div>
 
           {error && (
@@ -141,30 +143,39 @@ export default function AdminPage() {
           )}
 
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
-            <div className="relative">
-              <input
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="Introduza a palavra-passe"
-                className="w-full bg-white/[0.06] border border-white/15 px-5 py-3.5 text-sm text-[#f1f3f4] placeholder-[#9aa0a6] outline-none transition-all focus:border-[#dee054] focus:bg-white/[0.08]"
-                style={{ borderRadius: '16px' }}
-                autoFocus
-              />
-              <Lock size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-[#9aa0a6]" />
+            <div>
+              <label className="block text-[10px] font-semibold tracking-wider uppercase text-white/45 mb-1.5 pl-1">
+                Palavra-passe
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="Introduza a palavra-passe"
+                  className="w-full bg-white/[0.06] border border-white/15 px-4 py-3 text-sm text-[#f1f3f4] placeholder-[#9aa0a6] outline-none transition-colors focus:border-[#dee054]"
+                  style={{ borderRadius: '12px', boxSizing: 'border-box' }}
+                  autoFocus
+                />
+                <Lock size={15} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/35 pointer-events-none" />
+              </div>
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:brightness-105 active:scale-[0.98]"
-              style={{
-                backgroundColor: '#dee054',
-                color: '#081DF4',
-                borderRadius: '999px',
-              }}
-            >
-              Seguinte
-            </button>
+            <div className="pt-2">
+              <button
+                type="submit"
+                className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:brightness-105 active:scale-[0.98]"
+                style={{
+                  backgroundColor: '#dee054',
+                  color: '#081DF4',
+                  borderRadius: 999,
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                Seguinte →
+              </button>
+            </div>
           </form>
         </div>
       </div>

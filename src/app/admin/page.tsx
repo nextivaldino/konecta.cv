@@ -13,6 +13,9 @@ import {
   Filter,
   CheckCircle2,
   Lock,
+  ShieldCheck,
+  Activity,
+  ArrowUpRight,
 } from 'lucide-react'
 
 type SummaryData = {
@@ -89,14 +92,14 @@ export default function AdminPage() {
     setAuthed(true)
   }
 
-  /* ── TELA DE LOGIN ESTILO KONECTA (Dark Glassmorphic) ── */
+  /* ── TELA DE LOGIN ESTILO GOOGLE ACCOUNT (Material 3 Surface Container) ── */
   if (!authed) {
     return (
       <div
         className="min-h-screen flex items-center justify-center p-5 select-none relative overflow-hidden"
         style={{ backgroundColor: '#081DF4' }}
       >
-        {/* Ambient Radial Glow */}
+        {/* Subtle Ambient Radial Glow */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -106,19 +109,19 @@ export default function AdminPage() {
           }}
         />
 
-        {/* Card Login */}
+        {/* Card Login - Google Material You Surface Card */}
         <div
-          className="relative z-10 w-full max-w-[380px] p-8 border border-white/10"
+          className="relative z-10 w-full max-w-[420px] p-8 sm:p-10 border border-white/15"
           style={{
-            borderRadius: '16px',
-            background: 'rgba(10, 14, 38, 0.98)',
-            boxShadow: 'none',
+            borderRadius: '28px', // Material 3 large container
+            background: '#0d1333',
+            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.45)',
           }}
         >
-          <div className="flex flex-col items-center text-center mb-7">
+          <div className="flex flex-col items-center text-center mb-8">
             {/* Logo K minimalista */}
-            <div className="mb-4">
-              <svg width="26" height="38" viewBox="0 0 436.752 665.228" fill="none">
+            <div className="mb-4 p-3 rounded-2xl bg-white/[0.04] border border-white/10">
+              <svg width="28" height="40" viewBox="0 0 436.752 665.228" fill="none">
                 <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
                 <path
                   d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
@@ -127,40 +130,40 @@ export default function AdminPage() {
               </svg>
             </div>
 
-            <h1 className="text-xl font-bold tracking-tight text-[#efefef]">Konecta Admin</h1>
-            <p className="text-xs text-white/45 mt-1.5">Painel de Acesso & Registos</p>
+            <h1 className="text-2xl font-semibold tracking-tight text-[#f1f3f4]">Konecta Account</h1>
+            <p className="text-sm text-[#9aa0a6] mt-2">Painel de Controlo & Gestão de Acessos</p>
           </div>
 
           {error && (
-            <div className="mb-4 p-2.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-400 text-xs text-center">
+            <div className="mb-5 p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-3.5">
+          <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <div className="relative">
               <input
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder="Palavra-passe de acesso"
-                className="w-full bg-white/[0.06] border border-white/10 px-4 py-3 text-sm text-[#efefef] placeholder-white/30 outline-none transition-colors focus:border-[#dee054]"
-                style={{ borderRadius: '999px' }}
+                placeholder="Introduza a palavra-passe"
+                className="w-full bg-white/[0.06] border border-white/15 px-5 py-3.5 text-sm text-[#f1f3f4] placeholder-[#9aa0a6] outline-none transition-all focus:border-[#dee054] focus:bg-white/[0.08]"
+                style={{ borderRadius: '16px' }}
                 autoFocus
               />
-              <Lock size={15} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30" />
+              <Lock size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-[#9aa0a6]" />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:brightness-105 active:scale-[0.98]"
+              className="w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:brightness-105 active:scale-[0.98]"
               style={{
                 backgroundColor: '#dee054',
                 color: '#081DF4',
                 borderRadius: '999px',
               }}
             >
-              Entrar no Painel
+              Seguinte
             </button>
           </form>
         </div>
@@ -171,15 +174,14 @@ export default function AdminPage() {
   const tabs = [
     {
       id: 'registrations',
-      label: `Konectados (${data?.registrations?.length ?? 0})`,
+      label: `Inscrições (${data?.registrations?.length ?? 0})`,
       icon: Users,
     },
-    { id: 'overview', label: 'Estatísticas & Ilhas', icon: Globe },
-    { id: 'visitors', label: 'Visitantes Recentes', icon: Users },
-    { id: 'intrusions', label: 'Segurança & Intrusões', icon: AlertTriangle },
+    { id: 'overview', label: 'Estatísticas & Ilhas', icon: Activity },
+    { id: 'visitors', label: 'Tráfego & Dispositivos', icon: Globe },
+    { id: 'intrusions', label: 'Segurança & Proteção', icon: ShieldCheck },
   ] as const
 
-  // Filtragem e busca de registros
   const filteredRegistrations = (data?.registrations ?? []).filter(r => {
     const matchesSearch =
       r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -190,35 +192,38 @@ export default function AdminPage() {
   })
 
   return (
-    <div className="min-h-screen bg-[#070b1e] text-[#efefef] flex flex-col font-sans">
-      {/* Top Header */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-3.5 border-b border-white/10 bg-[#0a0e26]/90 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <svg width="18" height="26" viewBox="0 0 436.752 665.228" fill="none">
+    <div className="min-h-screen bg-[#070b1e] text-[#f1f3f4] flex flex-col font-sans">
+      {/* Top App Bar - Google Account Clean Navigation */}
+      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0d1333]/90 backdrop-blur-md">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5">
+            <svg width="20" height="28" viewBox="0 0 436.752 665.228" fill="none">
               <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
               <path
                 d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
                 fill="#efefef"
               />
             </svg>
-            <span className="font-bold text-sm tracking-wide text-[#efefef]">Konecta Admin</span>
+            <span className="font-semibold text-base tracking-tight text-[#f1f3f4]">
+              Konecta <span className="text-[#9aa0a6] font-normal">Account</span>
+            </span>
           </div>
 
           {lastUpdated && (
-            <span className="hidden sm:inline-block text-[11px] text-[#dee054] px-2.5 py-0.5 rounded-full bg-[#dee054]/10 border border-[#dee054]/20">
-              ● Atualizado: {lastUpdated}
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[#dee054] px-3 py-1 rounded-full bg-[#dee054]/10 border border-[#dee054]/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#dee054] animate-pulse" />
+              Sincronizado {lastUpdated}
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <button
             onClick={() => fetchData(token)}
             disabled={loading}
-            className="flex items-center gap-1.5 text-xs px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 text-xs px-4 py-2 rounded-full bg-white/[0.06] border border-white/10 hover:bg-white/[0.12] transition-colors text-[#f1f3f4]"
           >
-            <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
+            <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
             <span className="hidden sm:inline">Atualizar</span>
           </button>
           <button
@@ -226,116 +231,151 @@ export default function AdminPage() {
               setAuthed(false)
               setToken('')
             }}
-            className="flex items-center gap-1.5 text-xs px-3.5 py-1.5 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 hover:bg-red-500/25 transition-colors"
+            className="flex items-center gap-2 text-xs px-4 py-2 rounded-full bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25 transition-colors"
           >
-            <LogOut size={12} />
+            <LogOut size={13} />
             <span>Sair</span>
           </button>
         </div>
       </header>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-5 sm:p-6 flex flex-col gap-5">
-        {/* Metric Cards - 14px border radius & flat glassmorphic style */}
+      <main className="flex-1 max-w-6xl w-full mx-auto p-5 sm:p-8 flex flex-col gap-6">
+        {/* Welcome Section Header - Google Style */}
+        <div className="flex flex-col gap-1">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#f1f3f4]">
+            Visão Geral da Plataforma
+          </h2>
+          <p className="text-sm text-[#9aa0a6]">
+            Gira os candidatos prioritários, audite acessos e monitore a integridade do sistema.
+          </p>
+        </div>
+
+        {/* Material 3 Expressive Metric Cards */}
         {data && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* Card 1: Registos */}
+            {/* Metric 1 */}
             <div
-              className="p-5 border border-white/10 flex flex-col justify-between"
-              style={{ borderRadius: 14, background: '#0a0e26' }}
+              className="p-6 border border-white/10 flex flex-col justify-between transition-all hover:border-white/20"
+              style={{
+                borderRadius: '24px',
+                background: '#0d1333',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
             >
-              <div className="flex items-center justify-between text-white/50 text-xs">
-                <span>Inscrições Prioritárias</span>
-                <span className="w-2 h-2 rounded-full bg-[#dee054] shadow-[0_0_8px_#dee054]" />
+              <div className="flex items-center justify-between text-[#9aa0a6] text-xs">
+                <span className="font-medium">Total de Konectados</span>
+                <span className="p-2 rounded-full bg-[#dee054]/10 text-[#dee054]">
+                  <Users size={16} />
+                </span>
               </div>
-              <div className="my-2">
-                <span className="text-3xl font-extrabold text-[#dee054]">
+              <div className="my-3">
+                <span className="text-3xl sm:text-4xl font-bold text-[#dee054]">
                   {data.summary.totalRegistrations.toLocaleString()}
                 </span>
               </div>
-              <span className="text-[11px] text-white/40">Candidatos para novos serviços</span>
+              <span className="text-xs text-[#9aa0a6] flex items-center gap-1">
+                <ArrowUpRight size={13} className="text-[#dee054]" /> Lista de espera prioritária
+              </span>
             </div>
 
-            {/* Card 2: Visitantes */}
+            {/* Metric 2 */}
             <div
-              className="p-5 border border-white/10 flex flex-col justify-between"
-              style={{ borderRadius: 14, background: '#0a0e26' }}
+              className="p-6 border border-white/10 flex flex-col justify-between transition-all hover:border-white/20"
+              style={{
+                borderRadius: '24px',
+                background: '#0d1333',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
             >
-              <div className="flex items-center justify-between text-white/50 text-xs">
-                <span>Visitantes Únicos</span>
-                <Globe size={14} className="text-blue-400" />
+              <div className="flex items-center justify-between text-[#9aa0a6] text-xs">
+                <span className="font-medium">Visitantes Únicos</span>
+                <span className="p-2 rounded-full bg-blue-500/10 text-blue-400">
+                  <Globe size={16} />
+                </span>
               </div>
-              <div className="my-2">
-                <span className="text-3xl font-extrabold text-white">
+              <div className="my-3">
+                <span className="text-3xl sm:text-4xl font-bold text-[#f1f3f4]">
                   {data.summary.totalVisitors.toLocaleString()}
                 </span>
               </div>
-              <span className="text-[11px] text-white/40">Tráfego total na landing page</span>
+              <span className="text-xs text-[#9aa0a6]">Audiência global registada</span>
             </div>
 
-            {/* Card 3: Intrusões */}
+            {/* Metric 3 */}
             <div
-              className="p-5 border border-white/10 flex flex-col justify-between"
-              style={{ borderRadius: 14, background: '#0a0e26' }}
+              className="p-6 border border-white/10 flex flex-col justify-between transition-all hover:border-white/20"
+              style={{
+                borderRadius: '24px',
+                background: '#0d1333',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
             >
-              <div className="flex items-center justify-between text-white/50 text-xs">
-                <span>Ameaças Neutralizadas</span>
-                <AlertTriangle size={14} className="text-red-400" />
+              <div className="flex items-center justify-between text-[#9aa0a6] text-xs">
+                <span className="font-medium">Segurança e Filtros</span>
+                <span className="p-2 rounded-full bg-red-500/10 text-red-400">
+                  <ShieldCheck size={16} />
+                </span>
               </div>
-              <div className="my-2">
-                <span className="text-3xl font-extrabold text-red-400">
+              <div className="my-3">
+                <span className="text-3xl sm:text-4xl font-bold text-red-400">
                   {data.summary.totalIntrusions.toLocaleString()}
                 </span>
               </div>
-              <span className="text-[11px] text-white/40">Scanners e scripts barrados</span>
+              <span className="text-xs text-[#9aa0a6]">Scanners e ataques neutralizados</span>
             </div>
           </div>
         )}
 
-        {/* Tab Pills */}
+        {/* Material 3 Segmented Pill Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as typeof activeTab)}
-              className="flex items-center gap-2 text-xs px-4 py-2 rounded-full font-medium transition-all whitespace-nowrap"
+              className="flex items-center gap-2.5 text-xs px-5 py-2.5 rounded-full font-medium transition-all whitespace-nowrap"
               style={{
-                backgroundColor: activeTab === tab.id ? '#dee054' : 'rgba(255,255,255,0.05)',
-                color: activeTab === tab.id ? '#081DF4' : 'rgba(239,239,239,0.60)',
+                backgroundColor: activeTab === tab.id ? '#dee054' : 'rgba(255,255,255,0.06)',
+                color: activeTab === tab.id ? '#081DF4' : '#9aa0a6',
                 fontWeight: activeTab === tab.id ? 700 : 500,
+                border: activeTab === tab.id ? 'none' : '1px solid rgba(255,255,255,0.08)',
               }}
             >
-              <tab.icon size={13} />
+              <tab.icon size={14} />
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* TAB 1: REGISTRATIONS */}
+        {/* TAB 1: REGISTRATIONS - Card View with Material Surface */}
         {activeTab === 'registrations' && data && (
           <div
             className="border border-white/10 overflow-hidden flex flex-col"
-            style={{ borderRadius: 14, background: '#0a0e26' }}
+            style={{
+              borderRadius: '24px',
+              background: '#0d1333',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
+            }}
           >
-            {/* Filter bar */}
-            <div className="p-4 border-b border-white/10 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
-              <div className="relative flex-1 max-w-sm">
-                <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" />
+            {/* Search & Filter Header */}
+            <div className="p-5 border-b border-white/10 flex flex-col sm:flex-row gap-3.5 items-stretch sm:items-center justify-between">
+              <div className="relative flex-1 max-w-md">
+                <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9aa0a6]" />
                 <input
                   type="text"
-                  placeholder="Pesquisar por nome, telefone ou ilha..."
+                  placeholder="Pesquisar por nome, contacto ou ilha..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full bg-white/[0.04] border border-white/10 pl-9 pr-4 py-2 text-xs rounded-full text-[#efefef] placeholder-white/30 outline-none focus:border-[#dee054]"
+                  className="w-full bg-white/[0.05] border border-white/10 pl-11 pr-4 py-2.5 text-xs rounded-full text-[#f1f3f4] placeholder-[#9aa0a6] outline-none focus:border-[#dee054] transition-colors"
                 />
               </div>
 
               <div className="flex items-center gap-2">
-                <Filter size={13} className="text-white/40" />
+                <Filter size={13} className="text-[#9aa0a6]" />
                 <select
                   value={filterIsland}
                   onChange={e => setFilterIsland(e.target.value)}
-                  className="bg-white/[0.05] border border-white/10 text-xs rounded-full px-3 py-1.5 text-white/80 outline-none cursor-pointer"
+                  className="bg-white/[0.05] border border-white/10 text-xs rounded-full px-4 py-2 text-[#f1f3f4] outline-none cursor-pointer"
                 >
                   <option value="ALL">Todas as Ilhas</option>
                   <option value="Santiago">Santiago</option>
@@ -352,44 +392,44 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* Table */}
+            {/* Registrations Table */}
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-white/5 text-white/40 uppercase text-[10px] tracking-wider bg-black/20">
-                    <th className="px-5 py-3.5 font-semibold">Data</th>
-                    <th className="px-5 py-3.5 font-semibold">Nome Completo</th>
-                    <th className="px-5 py-3.5 font-semibold">Contacto Telefónico</th>
-                    <th className="px-5 py-3.5 font-semibold">Ilha & Concelho</th>
-                    <th className="px-5 py-3.5 font-semibold">País Origem</th>
+                  <tr className="border-b border-white/10 text-[#9aa0a6] uppercase text-[10px] tracking-wider bg-white/[0.02]">
+                    <th className="px-6 py-4 font-semibold">Registo</th>
+                    <th className="px-6 py-4 font-semibold">Nome Completo</th>
+                    <th className="px-6 py-4 font-semibold">Telefone</th>
+                    <th className="px-6 py-4 font-semibold">Localização</th>
+                    <th className="px-6 py-4 font-semibold">País</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {filteredRegistrations.map((r, i) => (
-                    <tr key={i} className="hover:bg-white/[0.02] transition-colors">
-                      <td className="px-5 py-3.5 text-white/40">
+                    <tr key={i} className="hover:bg-white/[0.03] transition-colors">
+                      <td className="px-6 py-4 text-[#9aa0a6]">
                         {new Date(r.created_at).toLocaleString('pt-PT')}
                       </td>
-                      <td className="px-5 py-3.5 font-semibold text-[#efefef]">{r.name}</td>
-                      <td className="px-5 py-3.5 font-mono text-[#dee054]">
-                        <div className="flex items-center gap-1.5">
+                      <td className="px-6 py-4 font-semibold text-[#f1f3f4]">{r.name}</td>
+                      <td className="px-6 py-4 font-mono text-[#dee054]">
+                        <div className="flex items-center gap-2">
                           <Phone size={12} className="opacity-70" />
                           <span>{r.phone || '—'}</span>
                         </div>
                       </td>
-                      <td className="px-5 py-3.5">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] text-white/90 border border-white/10 text-[11px]">
+                      <td className="px-6 py-4">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] text-[#f1f3f4] border border-white/10 text-[11px]">
                           <MapPin size={10} className="text-[#dee054]" />
                           {r.island || '—'}
                         </span>
                       </td>
-                      <td className="px-5 py-3.5 text-white/50">{r.country || 'Cabo Verde'}</td>
+                      <td className="px-6 py-4 text-[#9aa0a6]">{r.country || 'Cabo Verde'}</td>
                     </tr>
                   ))}
                   {filteredRegistrations.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="px-5 py-12 text-center text-white/35">
-                        Nenhum registo encontrado com estes critérios.
+                      <td colSpan={5} className="px-6 py-12 text-center text-[#9aa0a6]">
+                        Nenhum registo encontrado com estes filtros.
                       </td>
                     </tr>
                   )}
@@ -399,49 +439,57 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* TAB 2: OVERVIEW */}
+        {/* TAB 2: OVERVIEW - Material Cards Grid */}
         {activeTab === 'overview' && data && (
           <div className="grid md:grid-cols-2 gap-5">
             <div
-              className="p-5 border border-white/10"
-              style={{ borderRadius: 14, background: '#0a0e26' }}
+              className="p-6 border border-white/10"
+              style={{
+                borderRadius: '24px',
+                background: '#0d1333',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
             >
-              <h3 className="text-sm font-semibold mb-4 text-[#dee054] flex items-center gap-2">
-                <span>Distribuição por Ilha & Região</span>
+              <h3 className="text-sm font-semibold mb-5 text-[#dee054] flex items-center gap-2">
+                <span>Inscrições por Ilha & Região</span>
               </h3>
               <div className="flex flex-col gap-3">
                 {data.islandStats.map(item => (
                   <div key={item.island} className="flex items-center justify-between text-xs">
-                    <span className="text-white/70">{item.island}</span>
-                    <span className="font-mono text-[#dee054] font-bold px-2 py-0.5 rounded-full bg-white/5">
+                    <span className="text-[#f1f3f4]">{item.island}</span>
+                    <span className="font-mono text-[#dee054] font-bold px-3 py-1 rounded-full bg-white/[0.06] border border-white/10">
                       {item.count}
                     </span>
                   </div>
                 ))}
                 {data.islandStats.length === 0 && (
-                  <p className="text-xs text-white/30">Sem inscrições por ilha ainda.</p>
+                  <p className="text-xs text-[#9aa0a6]">Sem inscrições por ilha ainda.</p>
                 )}
               </div>
             </div>
 
             <div
-              className="p-5 border border-white/10"
-              style={{ borderRadius: 14, background: '#0a0e26' }}
+              className="p-6 border border-white/10"
+              style={{
+                borderRadius: '24px',
+                background: '#0d1333',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+              }}
             >
-              <h3 className="text-sm font-semibold mb-4 text-[#dee054] flex items-center gap-2">
-                <span>Origem dos Visitantes</span>
+              <h3 className="text-sm font-semibold mb-5 text-[#dee054] flex items-center gap-2">
+                <span>Origem Geográfica do Tráfego</span>
               </h3>
               <div className="flex flex-col gap-3">
                 {data.countryStats.slice(0, 10).map(c => (
                   <div key={c.country} className="flex items-center justify-between text-xs">
-                    <span className="text-white/70">{c.country}</span>
-                    <span className="font-mono text-white font-semibold px-2 py-0.5 rounded-full bg-white/5">
+                    <span className="text-[#f1f3f4]">{c.country}</span>
+                    <span className="font-mono text-[#f1f3f4] font-semibold px-3 py-1 rounded-full bg-white/[0.06] border border-white/10">
                       {c.count}
                     </span>
                   </div>
                 ))}
                 {data.countryStats.length === 0 && (
-                  <p className="text-xs text-white/30">Sem dados geográficos ainda.</p>
+                  <p className="text-xs text-[#9aa0a6]">Sem dados geográficos ainda.</p>
                 )}
               </div>
             </div>
@@ -452,34 +500,38 @@ export default function AdminPage() {
         {activeTab === 'visitors' && data && (
           <div
             className="border border-white/10 overflow-hidden"
-            style={{ borderRadius: 14, background: '#0a0e26' }}
+            style={{
+              borderRadius: '24px',
+              background: '#0d1333',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
+            }}
           >
-            <div className="p-4 border-b border-white/10">
+            <div className="p-5 border-b border-white/10">
               <h3 className="text-sm font-semibold text-[#dee054]">
-                Acessos Recentes à Landing Page ({data.recentVisitors.length})
+                Registos de Tráfego Recentes ({data.recentVisitors.length})
               </h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-white/5 text-white/40 uppercase text-[10px] tracking-wider bg-black/20">
-                    <th className="px-5 py-3">Data</th>
-                    <th className="px-5 py-3">Endereço IP</th>
-                    <th className="px-5 py-3">País</th>
-                    <th className="px-5 py-3">Cidade</th>
-                    <th className="px-5 py-3">Destino</th>
+                  <tr className="border-b border-white/10 text-[#9aa0a6] uppercase text-[10px] tracking-wider bg-white/[0.02]">
+                    <th className="px-6 py-3.5">Data/Hora</th>
+                    <th className="px-6 py-3.5">IP de Origem</th>
+                    <th className="px-6 py-3.5">País</th>
+                    <th className="px-6 py-3.5">Cidade</th>
+                    <th className="px-6 py-3.5">Página Visitada</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {data.recentVisitors.map((v, i) => (
-                    <tr key={i} className="hover:bg-white/[0.02]">
-                      <td className="px-5 py-3 text-white/40">
+                    <tr key={i} className="hover:bg-white/[0.03]">
+                      <td className="px-6 py-3.5 text-[#9aa0a6]">
                         {new Date(v.created_at as string).toLocaleString('pt-PT')}
                       </td>
-                      <td className="px-5 py-3 font-mono text-white/70">{v.ip_address as string}</td>
-                      <td className="px-5 py-3 text-[#dee054] font-medium">{v.country as string}</td>
-                      <td className="px-5 py-3 text-white/60">{v.city as string}</td>
-                      <td className="px-5 py-3 font-mono text-white/40">{v.path as string}</td>
+                      <td className="px-6 py-3.5 font-mono text-white/80">{v.ip_address as string}</td>
+                      <td className="px-6 py-3.5 text-[#dee054] font-medium">{v.country as string}</td>
+                      <td className="px-6 py-3.5 text-[#f1f3f4]">{v.city as string}</td>
+                      <td className="px-6 py-3.5 font-mono text-[#9aa0a6]">{v.path as string}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -492,44 +544,48 @@ export default function AdminPage() {
         {activeTab === 'intrusions' && data && (
           <div
             className="border border-white/10 overflow-hidden"
-            style={{ borderRadius: 14, background: '#0a0e26' }}
+            style={{
+              borderRadius: '24px',
+              background: '#0d1333',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
+            }}
           >
-            <div className="p-4 border-b border-white/10 flex items-center justify-between">
+            <div className="p-5 border-b border-white/10 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-red-400">
-                Ataques & Scanners Bloqueados ({data.recentIntrusions.length})
+                Auditoria de Segurança & Ameaças Bloqueadas ({data.recentIntrusions.length})
               </h3>
-              <span className="text-[11px] text-white/40">Filtro de intrusões ativo</span>
+              <span className="text-xs text-[#9aa0a6]">Proteção ativa 24/7</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b border-white/5 text-white/40 uppercase text-[10px] tracking-wider bg-black/20">
-                    <th className="px-5 py-3">Data</th>
-                    <th className="px-5 py-3">IP Origem</th>
-                    <th className="px-5 py-3">Tipo de Bloqueio</th>
-                    <th className="px-5 py-3">Alvo Tentado</th>
+                  <tr className="border-b border-white/10 text-[#9aa0a6] uppercase text-[10px] tracking-wider bg-white/[0.02]">
+                    <th className="px-6 py-3.5">Data/Hora</th>
+                    <th className="px-6 py-3.5">IP</th>
+                    <th className="px-6 py-3.5">Tipo de Ataque</th>
+                    <th className="px-6 py-3.5">Destino</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   {data.recentIntrusions.map((v, i) => (
-                    <tr key={i} className="hover:bg-white/[0.02]">
-                      <td className="px-5 py-3 text-white/40">
+                    <tr key={i} className="hover:bg-white/[0.03]">
+                      <td className="px-6 py-3.5 text-[#9aa0a6]">
                         {new Date(v.created_at as string).toLocaleString('pt-PT')}
                       </td>
-                      <td className="px-5 py-3 font-mono text-red-400">{v.ip_address as string}</td>
-                      <td className="px-5 py-3 font-mono text-yellow-300">
-                        <span className="px-2 py-0.5 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-[10px]">
+                      <td className="px-6 py-3.5 font-mono text-red-400">{v.ip_address as string}</td>
+                      <td className="px-6 py-3.5 font-mono text-yellow-300">
+                        <span className="px-2.5 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-[10px]">
                           {v.intrusion_type as string}
                         </span>
                       </td>
-                      <td className="px-5 py-3 font-mono text-white/40">{v.path as string}</td>
+                      <td className="px-6 py-3.5 font-mono text-[#9aa0a6]">{v.path as string}</td>
                     </tr>
                   ))}
                   {data.recentIntrusions.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-5 py-10 text-center text-white/30">
-                        <CheckCircle2 size={24} className="mx-auto mb-2 text-green-400 opacity-60" />
-                        Nenhuma tentativa suspeita detetada. Sistema seguro.
+                      <td colSpan={4} className="px-6 py-12 text-center text-[#9aa0a6]">
+                        <CheckCircle2 size={26} className="mx-auto mb-2 text-green-400 opacity-70" />
+                        Nenhuma intrusão ou scanner detetado. Ambiente seguro.
                       </td>
                     </tr>
                   )}

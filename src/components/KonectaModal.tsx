@@ -270,19 +270,19 @@ export default function KonectaModal({
             </div>
           </motion.div>
 
-          {/* Card - flat, minimal/no shadow, 50% reduced border-radius (14px) */}
+          {/* Card - Material You / Google Account style (soft elevated container, clean border, rounded corners) */}
           <motion.div
             layout
             style={{
               position: 'relative',
-              width: 400,
+              width: 410,
               maxWidth: '92vw',
-              borderRadius: 14,
-              background: '#0a0e26',
-              border: '1px solid rgba(255,255,255,0.12)',
-              boxShadow: 'none',
-              padding: '24px 24px 20px',
-              overflow: 'hidden', // manter o K watermark contido no card
+              borderRadius: 24, // Material 3 card standard (24px)
+              background: '#0d1333', // Google Account dark surface container
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)', // subtle elevation
+              padding: '28px 26px 24px',
+              overflow: 'hidden',
               boxSizing: 'border-box',
             }}
             initial={{ scale: 0.94, opacity: 0, y: 12 }}
@@ -918,14 +918,14 @@ const labelSt: React.CSSProperties = {
 
 const inputSt: React.CSSProperties = {
   width: '100%',
-  height: 42,
-  padding: '0 12px',
-  borderRadius: 7,
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  color: '#efefef',
-  fontSize: 13.5,
+  height: 46,
+  padding: '0 16px',
+  borderRadius: 14, // Material Design standard input radius
+  background: 'rgba(255,255,255,0.06)',
+  border: '1px solid rgba(255,255,255,0.15)',
+  color: '#f1f3f4',
+  fontSize: 14,
   outline: 'none',
-  transition: 'border-color 0.18s',
+  transition: 'all 0.2s cubic-bezier(0.2, 0, 0, 1)',
   boxSizing: 'border-box',
 }

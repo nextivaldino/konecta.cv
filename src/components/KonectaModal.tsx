@@ -2,21 +2,24 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, CheckCircle2, ChevronDown, Check, User, ArrowLeft, Lock, Mail, Sparkles, MapPin } from 'lucide-react'
+import { X, CheckCircle2, ChevronDown, User, ArrowLeft, Lock, Mail, Sparkles, MapPin } from 'lucide-react'
 
-/* ── Neo-Brutalism K Mark ── */
+/* ── Neo-Brutalism K Mark with Retro OS Title ── */
 function NeoKMark() {
   const barPath = 'M0 0 L144.634 0 L144.634 586.476 L0 586.476 Z'
   const curvePath =
     'M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z'
 
   return (
-    <div className="flex items-center gap-2">
-      <svg width="24" height="34" viewBox="0 0 436.752 665.228" fill="none" className="overflow-visible drop-shadow-[2px_2px_0px_#000]">
+    <div className="flex items-center gap-3">
+      <svg width="24" height="34" viewBox="0 0 436.752 665.228" fill="none" className="overflow-visible drop-shadow-[1.5px_1.5px_0px_#000]">
         <path d={barPath} fill="#A2E435" stroke="#000000" strokeWidth="24" />
         <path d={curvePath} fill="#FFFFFF" stroke="#000000" strokeWidth="24" />
       </svg>
-      <span className="font-extrabold text-lg tracking-tight uppercase">Konecta</span>
+      <div className="flex flex-col">
+        <span className="font-black text-lg tracking-tight uppercase leading-none">Konecta</span>
+        <span className="text-[10px] font-mono font-bold text-[#78716C] uppercase tracking-wider">Sistema CV // v1.0</span>
+      </div>
     </div>
   )
 }
@@ -146,8 +149,8 @@ export default function KonectaModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          {/* Riddle Backdrop: Semi-transparent black with neo grid dots */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+          {/* Riddle Backdrop: Semi-transparent black with subtle blur */}
           <motion.div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs"
             initial={{ opacity: 0 }}
@@ -156,30 +159,34 @@ export default function KonectaModal({
             onClick={handleClose}
           />
 
-          {/* Modal Container — Riddle UI Neo-Brutalism Style */}
+          {/* Modal Container — Classic OS Window Neo-Brutalism Style (Wider with larger paddings & 25% reduced shadow) */}
           <motion.div
             layout
-            initial={{ scale: 0.92, opacity: 0, y: 16 }}
+            initial={{ scale: 0.94, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 8 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="relative z-10 w-full max-w-[430px] bg-white border-[3px] border-black rounded-[20px] shadow-[8px_8px_0px_#000] p-6 sm:p-7 text-black box-border"
+            transition={{ type: 'spring', damping: 26, stiffness: 350 }}
+            className="relative z-10 w-full max-w-[520px] bg-white border-[3px] border-black rounded-[24px] shadow-[6px_6px_0px_#000] p-7 sm:p-9 text-black box-border"
           >
-            {/* Header: Logo + Progress badge + Close button */}
-            <div className="flex items-center justify-between pb-5 mb-5 border-b-2 border-black">
+            {/* Header: OS Window Title Bar with larger height & clear structure */}
+            <div className="flex items-center justify-between pb-6 mb-6 border-b-[3px] border-black">
               <NeoKMark />
 
               <div className="flex items-center gap-3">
                 {/* Progress Pill */}
-                <div className="flex items-center gap-1.5 px-3 py-1 bg-[#F5F5F4] border-2 border-black rounded-full text-xs font-bold shadow-[2px_2px_0px_#000]">
-                  <span className="w-2.5 h-2.5 rounded-full border border-black" style={{ backgroundColor: progress === 100 ? '#11A365' : '#FFD027' }} />
-                  <span>{progress}%</span>
+                <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[#F5F5F4] border-2 border-black rounded-full text-xs font-bold shadow-[1.5px_1.5px_0px_#000]">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full border border-black"
+                    style={{ backgroundColor: progress === 100 ? '#11A365' : '#FFD027' }}
+                  />
+                  <span className="font-mono">{progress}%</span>
                 </div>
 
-                {/* Close Button */}
+                {/* Close Button styled like OS window close control */}
                 <button
                   onClick={handleClose}
-                  className="w-8 h-8 rounded-full border-2 border-black bg-[#E2442F] text-white flex items-center justify-center shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-xl border-2 border-black bg-[#E2442F] text-white flex items-center justify-center shadow-[1.5px_1.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
+                  title="Fechar janela"
                 >
                   <X size={16} strokeWidth={3} />
                 </button>
@@ -187,37 +194,38 @@ export default function KonectaModal({
             </div>
 
             {error && (
-              <div className="mb-5 p-3 rounded-xl bg-[#FEE2E2] border-2 border-black text-black font-semibold text-xs shadow-[2px_2px_0px_#000]">
+              <div className="mb-6 p-3.5 rounded-xl bg-[#FEE2E2] border-2 border-black text-black font-bold text-xs shadow-[1.5px_1.5px_0px_#000]">
                 ⚠️ {error}
               </div>
             )}
 
             {/* STEP 1: PROMPT */}
             {step === 'prompt' && (
-              <div className="flex flex-col gap-5">
-                <div className="p-4 bg-[#F5F5F4] border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
-                  <div className="inline-block px-2 py-0.5 bg-[#B286FD] border border-black rounded text-[10px] font-extrabold uppercase mb-2">
+              <div className="flex flex-col gap-6">
+                <div className="p-6 bg-[#F5F5F4] border-2 border-black rounded-2xl shadow-[2px_2px_0px_#000]">
+                  <div className="inline-block px-2.5 py-1 bg-[#B286FD] border border-black rounded text-[11px] font-black uppercase mb-3">
                     Lançamento Exclusivo
                   </div>
-                  <h3 className="text-lg font-extrabold tracking-tight mb-1">Queres Konectar-te?</h3>
-                  <p className="text-xs text-[#78716C] leading-relaxed">
+                  <h3 className="text-xl font-black tracking-tight mb-2">Queres Konectar-te?</h3>
+                  <p className="text-sm text-[#78716C] leading-relaxed">
                     Sê um dos primeiros cabo-verdianos a aceder às novas oportunidades, serviços e novidades da rede Konecta.
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-3">
+                {/* Natural buttons (not stretched full-width) */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
                   <button
-                    onClick={() => setStep('form')}
-                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    onClick={handleClose}
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[46px] px-6 py-3 rounded-xl bg-white border-2 border-black font-extrabold text-xs uppercase tracking-wide text-[#78716C] hover:bg-[#F5F5F4] hover:text-black transition-all cursor-pointer"
                   >
-                    Sim, Konecta-me! 🚀
+                    Agora não
                   </button>
 
                   <button
-                    onClick={handleClose}
-                    className="w-full flex items-center justify-center min-h-[44px] py-3.5 px-8 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase tracking-wide text-[#78716C] hover:bg-[#F5F5F4] transition-all cursor-pointer"
+                    onClick={() => setStep('form')}
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[50px] px-8 py-3.5 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
-                    Agora não
+                    Sim, Konecta-me! 🚀
                   </button>
                 </div>
               </div>
@@ -225,9 +233,9 @@ export default function KonectaModal({
 
             {/* STEP 2: FORM */}
             {step === 'form' && (
-              <form onSubmit={handleInitialFormSubmit} className="flex flex-col gap-4">
+              <form onSubmit={handleInitialFormSubmit} className="flex flex-col gap-5">
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider mb-2">
                     Nome Completo *
                   </label>
                   <input
@@ -235,13 +243,13 @@ export default function KonectaModal({
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="Ex: Manuel Silva"
-                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[3px_3px_0px_#000] transition-all"
                     autoFocus
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider mb-2">
                     Número de Contacto *
                   </label>
                   <input
@@ -249,25 +257,25 @@ export default function KonectaModal({
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     placeholder="Ex: 9912345"
-                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[4px_4px_0px_#000] transition-all"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] focus:shadow-[3px_3px_0px_#000] transition-all"
                   />
                 </div>
 
                 {/* Island Dropdown */}
                 <div ref={dropdownRef} className="relative">
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider mb-2">
                     Onde Estás Localizado? *
                   </label>
                   <button
                     type="button"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm flex items-center justify-between shadow-[3px_3px_0px_#000] hover:bg-[#FFFDF5] transition-all cursor-pointer text-left"
+                    className="w-full h-12 px-4 bg-white border-2 border-black rounded-xl font-medium text-sm flex items-center justify-between shadow-[2px_2px_0px_#000] hover:bg-[#FFFDF5] transition-all cursor-pointer text-left"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       {currentIslandObj ? (
                         <>
-                          <span className="w-3 h-3 rounded-full border border-black" style={{ backgroundColor: currentIslandObj.color }} />
-                          <span className="font-bold">{selectedIsland} {selectedConcelho && `(${selectedConcelho})`}</span>
+                          <span className="w-3.5 h-3.5 rounded-full border border-black" style={{ backgroundColor: currentIslandObj.color }} />
+                          <span className="font-bold text-sm">{selectedIsland} {selectedConcelho && `(${selectedConcelho})`}</span>
                         </>
                       ) : (
                         <span className="text-[#78716C]">Escolhe a tua Ilha / Concelho</span>
@@ -278,7 +286,7 @@ export default function KonectaModal({
 
                   {/* Dropdown Menu */}
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 mt-2 z-30 max-h-56 overflow-y-auto bg-white border-2 border-black rounded-xl shadow-[5px_5px_0px_#000] p-1.5">
+                    <div className="absolute top-full left-0 right-0 mt-2 z-30 max-h-56 overflow-y-auto bg-white border-2 border-black rounded-xl shadow-[4px_4px_0px_#000] p-2">
                       {ILHAS_CV.map(island => {
                         const isSelected = selectedIsland === island.name
                         const isExpanded = expandedIsland === island.name
@@ -290,11 +298,11 @@ export default function KonectaModal({
                                 setSelectedConcelho('')
                                 setExpandedIsland(isExpanded ? null : island.name)
                               }}
-                              className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer font-bold text-xs hover:bg-[#F5F5F4] transition-colors ${isSelected ? 'bg-[#FFD027]/25' : ''}`}
+                              className={`flex items-center justify-between p-3 rounded-lg cursor-pointer font-bold text-xs hover:bg-[#F5F5F4] transition-colors ${isSelected ? 'bg-[#FFD027]/25' : ''}`}
                             >
-                              <div className="flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 rounded-full border border-black" style={{ backgroundColor: island.color }} />
-                                <span>{island.name}</span>
+                              <div className="flex items-center gap-2.5">
+                                <span className="w-3 h-3 rounded-full border border-black" style={{ backgroundColor: island.color }} />
+                                <span className="text-sm">{island.name}</span>
                               </div>
                               <span className="text-[10px] text-[#78716C] uppercase font-mono">
                                 {island.concelhos.length} concelho(s)
@@ -303,7 +311,7 @@ export default function KonectaModal({
 
                             {/* Sub-concelhos */}
                             {isExpanded && (
-                              <div className="pl-6 pr-2 py-1 flex flex-wrap gap-1 bg-[#F5F5F4] rounded-md my-1">
+                              <div className="pl-6 pr-2 py-1.5 flex flex-wrap gap-1.5 bg-[#F5F5F4] rounded-lg my-1">
                                 {island.concelhos.map(conc => (
                                   <button
                                     key={conc}
@@ -314,7 +322,7 @@ export default function KonectaModal({
                                       setSelectedConcelho(conc)
                                       setIsDropdownOpen(false)
                                     }}
-                                    className={`px-2 py-1 text-[11px] font-bold border border-black rounded shadow-[1px_1px_0px_#000] cursor-pointer hover:bg-white transition-all ${selectedConcelho === conc ? 'bg-[#A2E435]' : 'bg-white'}`}
+                                    className={`px-2.5 py-1 text-xs font-bold border border-black rounded shadow-[1px_1px_0px_#000] cursor-pointer hover:bg-white transition-all ${selectedConcelho === conc ? 'bg-[#A2E435]' : 'bg-white'}`}
                                   >
                                     {conc}
                                   </button>
@@ -328,10 +336,19 @@ export default function KonectaModal({
                   )}
                 </div>
 
-                <div className="pt-2">
+                {/* Natural Action buttons aligned right */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-3 border-t-2 border-black/10">
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-2.5 rounded-xl bg-white border-2 border-black font-extrabold text-xs uppercase tracking-wide text-[#78716C] hover:bg-[#F5F5F4] hover:text-black transition-all cursor-pointer"
+                  >
+                    Cancelar
+                  </button>
+
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#FFD027] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[48px] px-9 py-3 rounded-xl bg-[#FFD027] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     Continuar →
                   </button>
@@ -341,31 +358,32 @@ export default function KonectaModal({
 
             {/* STEP 3: ASK PROFILE */}
             {step === 'ask_profile' && (
-              <div className="flex flex-col gap-5">
-                <div className="p-4 bg-[#B286FD]/20 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
+              <div className="flex flex-col gap-6">
+                <div className="p-6 bg-[#B286FD]/20 border-2 border-black rounded-2xl shadow-[2px_2px_0px_#000]">
                   <div className="flex items-center gap-2 mb-2">
-                    <Sparkles size={16} className="text-[#000]" />
-                    <h3 className="text-base font-extrabold uppercase">Queres Criar um Perfil?</h3>
+                    <Sparkles size={18} className="text-[#000]" />
+                    <h3 className="text-lg font-black uppercase tracking-tight">Queres Criar um Perfil?</h3>
                   </div>
-                  <p className="text-xs text-[#78716C] leading-relaxed">
+                  <p className="text-sm text-[#78716C] leading-relaxed">
                     Cria uma conta pessoal para teres prioridade máxima e acesso imediato à plataforma quando abrir.
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-2.5">
-                  <button
-                    onClick={() => setStep('profile_form')}
-                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#B286FD] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
-                  >
-                    ✨ Sim, Criar Meu Perfil
-                  </button>
-
+                {/* Natural buttons */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
                   <button
                     onClick={() => handleFinalSubmit(false)}
                     disabled={loading}
-                    className="w-full flex items-center justify-center min-h-[46px] py-3.5 px-8 rounded-xl bg-white border-2 border-black font-bold text-xs uppercase tracking-wide shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4] transition-all cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[46px] px-6 py-3 rounded-xl bg-white border-2 border-black font-extrabold text-xs uppercase tracking-wide shadow-[1.5px_1.5px_0px_#000] hover:bg-[#F5F5F4] transition-all cursor-pointer"
                   >
                     {loading ? 'A guardar...' : 'Apenas Entrar na Lista'}
+                  </button>
+
+                  <button
+                    onClick={() => setStep('profile_form')}
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[48px] px-8 py-3.5 rounded-xl bg-[#B286FD] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                  >
+                    ✨ Sim, Criar Meu Perfil
                   </button>
                 </div>
               </div>
@@ -373,55 +391,64 @@ export default function KonectaModal({
 
             {/* STEP 4: PROFILE FORM */}
             {step === 'profile_form' && (
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-2.5 mb-1 pb-3 border-b border-black/10">
                   <button
                     type="button"
                     onClick={() => setStep('ask_profile')}
-                    className="p-1 border border-black rounded hover:bg-[#F5F5F4]"
+                    className="p-1.5 border-2 border-black rounded-lg hover:bg-[#F5F5F4] transition-colors cursor-pointer"
                   >
-                    <ArrowLeft size={14} />
+                    <ArrowLeft size={14} strokeWidth={2.5} />
                   </button>
-                  <span className="text-xs font-bold uppercase tracking-wider">Criar Perfil Konecta</span>
+                  <span className="text-xs font-black uppercase tracking-wider">Criar Perfil Konecta</span>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider mb-2">
                     O teu Email *
                   </label>
                   <div className="relative">
-                    <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
+                    <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#78716C]" />
                     <input
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="teuemail@exemplo.cv"
-                      className="w-full h-12 pl-10 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                      className="w-full h-12 pl-11 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider mb-2">
                     Palavra-passe Segura *
                   </label>
                   <div className="relative">
-                    <Lock size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
+                    <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#78716C]" />
                     <input
                       type="password"
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                       placeholder="Mínimo 6 caracteres"
-                      className="w-full h-12 pl-10 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                      className="w-full h-12 pl-11 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                     />
                   </div>
                 </div>
 
-                <div className="pt-2">
+                {/* Action bar */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 pt-3 border-t-2 border-black/10">
+                  <button
+                    type="button"
+                    onClick={() => setStep('ask_profile')}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 min-h-[44px] px-5 py-2.5 rounded-xl bg-white border-2 border-black font-extrabold text-xs uppercase tracking-wide text-[#78716C] hover:bg-[#F5F5F4] transition-all cursor-pointer"
+                  >
+                    <ArrowLeft size={14} /> Voltar
+                  </button>
+
                   <button
                     onClick={() => handleFinalSubmit(true)}
                     disabled={loading}
-                    className="w-full flex items-center justify-center min-h-[54px] py-4 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center min-h-[48px] px-8 py-3.5 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
                   >
                     {loading ? 'A processar...' : 'Finalizar & Konectar! 🎉'}
                   </button>
@@ -431,24 +458,24 @@ export default function KonectaModal({
 
             {/* STEP 5: SUCCESS */}
             {step === 'success' && (
-              <div className="flex flex-col items-center text-center py-4 gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-[#A2E435] border-[3px] border-black flex items-center justify-center shadow-[4px_4px_0px_#000] mb-2">
+              <div className="flex flex-col items-center text-center py-6 gap-4">
+                <div className="w-16 h-16 rounded-2xl bg-[#A2E435] border-[3px] border-black flex items-center justify-center shadow-[3px_3px_0px_#000] mb-2">
                   <CheckCircle2 size={36} strokeWidth={2.5} />
                 </div>
 
-                <div className="inline-block px-3 py-1 bg-[#FFD027] border-2 border-black rounded-full text-xs font-black uppercase">
+                <div className="inline-block px-3.5 py-1 bg-[#FFD027] border-2 border-black rounded-full text-xs font-black uppercase shadow-[1.5px_1.5px_0px_#000]">
                   Estás Konectado!
                 </div>
 
-                <h3 className="text-xl font-black tracking-tight">Obrigado, {name.split(' ')[0]}!</h3>
+                <h3 className="text-2xl font-black tracking-tight">Obrigado, {name.split(' ')[0]}!</h3>
 
-                <p className="text-xs text-[#78716C] leading-relaxed max-w-xs">
+                <p className="text-sm text-[#78716C] leading-relaxed max-w-sm">
                   O teu registo foi guardado com sucesso. Brevemente entraremos em contacto com todas as novidades prioritárias.
                 </p>
 
                 <button
                   onClick={handleClose}
-                  className="mt-3 w-full flex items-center justify-center min-h-[48px] py-3.5 px-8 rounded-xl bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#FFD027] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+                  className="mt-4 inline-flex items-center justify-center min-h-[46px] px-10 py-3 rounded-xl bg-black text-white font-extrabold text-xs uppercase tracking-wider shadow-[2px_2px_0px_#FFD027] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
                 >
                   Concluir
                 </button>

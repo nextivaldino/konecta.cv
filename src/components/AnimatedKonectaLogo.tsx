@@ -3,16 +3,12 @@
 import { motion } from 'framer-motion'
 
 /**
- * Animated Logo for Konecta.cv
- * Continuous SVG Stroke Drawing & Fill Cycle:
- * 1. Strokes draw themselves seamlessly along the outlines (SVG pathLength 0 -> 1)
- * 2. As the outline finishes, the vibrant fill fades in and glows
- * 3. Holds for a graceful moment of connection
- * 4. Smoothly dissolves the fill and undraws the stroke, looping continuously
+ * Animated Logo for Konecta.cv — Neo-Brutalism Edition (Riddle UI style)
+ * In Neo-Brutalism, the logo features bold black outlines, energetic accent colors
+ * (#FFD027 electric yellow, #000000 black, #FFFFFF white), and a sharp drop shadow offset.
  */
 
 export default function AnimatedKonectaLogo({ className = '' }: { className?: string }) {
-  // SVG coordinates extracted from KONECT.svg (viewBox: 0 0 2615.466 665.228)
   const barPath = 'M0 0 L144.634 0 L144.634 586.476 L0 586.476 Z'
 
   const curvePath =
@@ -34,84 +30,56 @@ export default function AnimatedKonectaLogo({ className = '' }: { className?: st
     'M2562.085 584.978 C2511.755 584.978 2472.736 571.379 2445.029 544.18 C2417.322 516.982 2403.468 478.98 2403.468 430.175 L2403.468 263.169 L2333.311 263.169 L2333.311 164.034 L2337.124 164.034 C2358.476 164.034 2374.872 158.696 2386.31 148.02 C2397.749 137.343 2403.468 121.329 2403.468 99.977 L2403.468 69.474 L2517.856 57.384 L2517.856 164.034 L2615.466 164.034 L2615.466 263.169 L2517.856 263.169 L2517.856 422.549 C2517.856 436.784 2520.398 448.604 2525.481 458.009 C2530.565 467.414 2538.445 474.404 2549.121 478.98 C2559.798 483.555 2573.016 485.843 2588.776 485.843 C2592.334 485.843 2596.402 485.589 2600.977 485.08 C2605.552 484.572 2610.382 484.064 2615.466 483.555 L2615.466 580.403 C2607.84 581.42 2599.198 582.437 2589.538 583.453 C2579.879 584.47 2570.728 584.978 2562.085 584.978 Z'
 
   const elements = [
-    { id: 'bar', d: barPath, color: '#dee054', isBar: true },
-    { id: 'curve', d: curvePath, color: '#efefef' },
-    { id: 'o', d: oPath, color: '#efefef' },
-    { id: 'n', d: nPath, color: '#efefef' },
-    { id: 'e', d: ePath, color: '#efefef' },
-    { id: 'c', d: cPath, color: '#efefef' },
-    { id: 't', d: tPath, color: '#efefef' },
+    { id: 'bar', d: barPath, color: '#FFD027', strokeColor: '#000000' },
+    { id: 'curve', d: curvePath, color: '#FFFFFF', strokeColor: '#000000' },
+    { id: 'o', d: oPath, color: '#000000', strokeColor: '#000000' },
+    { id: 'n', d: nPath, color: '#000000', strokeColor: '#000000' },
+    { id: 'e', d: ePath, color: '#000000', strokeColor: '#000000' },
+    { id: 'c', d: cPath, color: '#000000', strokeColor: '#000000' },
+    { id: 't', d: tPath, color: '#000000', strokeColor: '#000000' },
   ]
-
-  // Keyframes for the continuous drawing and filling loop:
-  // 0% -> stroke starts drawing
-  // 35% -> stroke finishes drawing, fill starts to enter
-  // 50% -> fully filled & glowing
-  // 75% -> holds fully visible
-  // 90% -> fill fades, stroke undraws
-  // 100% -> reset for next cycle
 
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
-      {/* Background ambient radial pulse */}
-      <motion.div
-        className="absolute -inset-16 rounded-full pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(222,224,84,0.2) 0%, rgba(8,29,244,0.1) 50%, rgba(8,29,244,0) 75%)',
-        }}
-        animate={{
-          scale: [0.95, 1.12, 0.95],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      {/* Neo-brutalist shadow duplicate layer */}
+      <div 
+        className="absolute inset-0 translate-x-2 translate-y-2 pointer-events-none opacity-20"
+        style={{ filter: 'grayscale(1)' }}
+      >
+        <svg viewBox="0 0 2615.466 665.228" className="w-full h-auto overflow-visible">
+          {elements.map(el => (
+            <path key={'shadow-' + el.id} d={el.d} fill="#000000" />
+          ))}
+        </svg>
+      </div>
 
       <svg
         viewBox="0 0 2615.466 665.228"
-        className="w-full h-auto overflow-visible select-none drop-shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
+        className="w-full h-auto overflow-visible select-none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <defs>
-          <filter id="glowYellow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="6" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
         {elements.map((el, i) => (
           <motion.path
             key={el.id}
             d={el.d}
-            stroke={el.color}
-            strokeWidth={10}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            filter={el.isBar ? 'url(#glowYellow)' : undefined}
+            stroke={el.strokeColor}
+            strokeWidth={14}
+            strokeLinecap="square"
+            strokeLinejoin="miter"
             animate={{
-              // 1. Path length (Drawing the borders)
               pathLength: [0, 1, 1, 1, 0, 0],
-              // 2. Stroke Opacity
-              strokeOpacity: [0.3, 1, 1, 0.8, 0.2, 0.3],
-              // 3. Fill Opacity (Filling in after borders are drawn)
+              strokeOpacity: [0.5, 1, 1, 1, 0.4, 0.5],
               fillOpacity: [0, 0, 1, 1, 0, 0],
             }}
             style={{
               fill: el.color,
             }}
             transition={{
-              duration: 5.5,
+              duration: 5.2,
               repeat: Infinity,
               ease: 'easeInOut',
-              times: [0, 0.38, 0.52, 0.78, 0.95, 1],
-              delay: i * 0.12, // subtle organic wave from left (K) to right (T)
+              times: [0, 0.35, 0.5, 0.8, 0.95, 1],
+              delay: i * 0.1,
             }}
           />
         ))}

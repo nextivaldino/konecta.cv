@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+:root {
+  /* Exact Riddle UI Design Tokens */
+  --riddle-bg: #EBE7DF;            /* Warm stone canvas */
+  --riddle-surface: #FFFFFF;       /* Card surface */
+  --riddle-purple: #B286FD;        /* Primary accent */
+  --riddle-lime: #A2E435;          /* Neo lime ticker / CTA */
+  --riddle-yellow: #FFD027;        /* Topaz yellow */
+  --riddle-orange: #FF7051;        /* Tomato */
+  --riddle-cyan: #22D2ED;          /* Cyan */
+  --riddle-blue: #60A5F9;          /* Crystal blue */
+  --riddle-green: #11A365;         /* Success green */
+  --riddle-red: #E2442F;           /* Danger red */
+  --riddle-gray: #78716C;          /* Muted stone text */
+  --riddle-black: #000000;         /* Pitch black */
+
+  /* Neo-Brutalism Shadows & Borders */
+  --riddle-border: 2px solid #000000;
+  --riddle-border-thick: 3px solid #000000;
+  --riddle-shadow-sm: 2px 2px 0px #000000;
+  --riddle-shadow: 4px 4px 0px #000000;
+  --riddle-shadow-lg: 6px 6px 0px #000000;
+  --riddle-shadow-xl: 8px 8px 0px #000000;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,16 +35,85 @@ body {
   min-height: 100%;
   width: 100%;
   overflow-x: hidden;
-  background-color: #081DF4;
+  background-color: var(--riddle-bg);
+  color: var(--riddle-black);
+  font-family: var(--font-space), var(--font-inter), system-ui, sans-serif;
 }
 
-/* Dark select options across all browsers */
+/* Subtle neo-brutalist grid texture */
+.riddle-grid-bg {
+  background-color: #EBE7DF;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* Riddle UI Card Classes */
+.riddle-card {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  border-radius: 16px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.riddle-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+/* Riddle UI Button Classes */
+.riddle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #B286FD;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px #000000;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.riddle-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.riddle-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
+}
+
+/* Riddle Badge / Pill */
+.riddle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background-color: #A2E435;
+  color: #000000;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Select element styling */
 select option {
-  background-color: #0a0e26;
-  color: #efefef;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-weight: 600;
 }
 
-/* Remove ALL native arrows on selects — all browsers */
 select,
 select.custom-select {
   -webkit-appearance: none !important;
@@ -28,10 +121,11 @@ select.custom-select {
   appearance: none !important;
   background-image: none !important;
 }
+
 select::-ms-expand {
   display: none !important;
 }
-/* Chrome/Safari extra insurance */
+
 select::-webkit-inner-spin-button,
 select::-webkit-outer-spin-button {
   display: none;

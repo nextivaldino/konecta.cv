@@ -16,9 +16,9 @@ import {
   Activity,
   ArrowUpRight,
   Mail,
-  TrendingUp,
-  Eye,
   UserCheck,
+  Eye,
+  Sparkles,
 } from 'lucide-react'
 
 type SummaryData = {
@@ -48,28 +48,24 @@ type AdminData = {
   registrations: Registration[]
 }
 
-/* ── Mini Bar Chart Component ── */
-function BarChart({ data, color = '#dee054' }: { data: { label: string; value: number }[]; color?: string }) {
+/* ── Neo-Brutalism Mini Bar Chart (Riddle UI Style) ── */
+function NeoBarChart({ data, color = '#FFD027' }: { data: { label: string; value: number }[]; color?: string }) {
   const max = Math.max(...data.map(d => d.value), 1)
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+    <div className="flex flex-col gap-2.5">
       {data.map((item, i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 11, color: 'rgba(241,243,244,0.8)', width: 110, flexShrink: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {item.label}
-          </span>
-          <div style={{ flex: 1, height: 7, borderRadius: 999, background: 'rgba(255,255,255,0.07)', overflow: 'hidden' }}>
+        <div key={i} className="flex items-center gap-3">
+          <span className="text-xs font-bold w-28 truncate text-black">{item.label}</span>
+          <div className="flex-1 h-3.5 bg-white border-2 border-black rounded-md overflow-hidden shadow-[2px_2px_0px_#000]">
             <div
+              className="h-full border-r-2 border-black transition-all duration-700"
               style={{
-                height: '100%',
                 width: `${(item.value / max) * 100}%`,
-                borderRadius: 999,
-                background: color,
-                transition: 'width 0.8s cubic-bezier(0.4,0,0.2,1)',
+                backgroundColor: color,
               }}
             />
           </div>
-          <span style={{ fontSize: 11, color, fontWeight: 700, minWidth: 20, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+          <span className="text-xs font-mono font-black text-black min-w-[24px] text-right">
             {item.value}
           </span>
         </div>
@@ -78,53 +74,37 @@ function BarChart({ data, color = '#dee054' }: { data: { label: string; value: n
   )
 }
 
-/* ── Metric Card ── */
-function MetricCard({
-  label, value, sub, icon: Icon, color, bg,
+/* ── Neo-Brutalism Metric Card (Riddle UI Style) ── */
+function NeoMetricCard({
+  label,
+  value,
+  sub,
+  icon: Icon,
+  badgeColor,
 }: {
-  label: string; value: string | number; sub: string;
-  icon: React.ElementType; color: string; bg: string;
+  label: string
+  value: string | number
+  sub: string
+  icon: React.ElementType
+  badgeColor: string
 }) {
   return (
-    <div
-      style={{
-        padding: '24px',
-        borderRadius: 20,
-        background: '#0d1333',
-        border: '1px solid rgba(255,255,255,0.08)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        transition: 'border-color 0.2s',
-      }}
-      onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)')}
-      onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 11, fontWeight: 600, color: 'rgba(154,160,166,0.9)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>{label}</span>
-        <span style={{ padding: '8px', borderRadius: 12, background: bg, color }}>
-          <Icon size={15} />
-        </span>
+    <div className="p-5 sm:p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[5px_5px_0px_#000] flex flex-col justify-between hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#000] transition-all">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-black uppercase tracking-wider text-[#78716C]">{label}</span>
+        <div
+          className="w-9 h-9 rounded-xl border-2 border-black flex items-center justify-center shadow-[2px_2px_0px_#000]"
+          style={{ backgroundColor: badgeColor }}
+        >
+          <Icon size={18} strokeWidth={2.5} />
+        </div>
       </div>
-      <span style={{ fontSize: 36, fontWeight: 700, color, lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{value}</span>
-      <span style={{ fontSize: 11, color: 'rgba(154,160,166,0.7)', display: 'flex', alignItems: 'center', gap: 4 }}>
-        <ArrowUpRight size={12} style={{ color }} />
-        {sub}
+      <div className="my-1">
+        <span className="text-3xl sm:text-4xl font-black text-black tracking-tight">{value}</span>
+      </div>
+      <span className="text-xs font-semibold text-[#78716C] flex items-center gap-1 mt-2">
+        <ArrowUpRight size={13} className="text-black" /> {sub}
       </span>
-    </div>
-  )
-}
-
-/* ── Empty State ── */
-function EmptyState({ icon: Icon, title, sub }: { icon: React.ElementType; title: string; sub: string }) {
-  return (
-    <div style={{ padding: '64px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-      <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Icon size={22} style={{ color: 'rgba(154,160,166,0.6)' }} />
-      </div>
-      <span style={{ fontSize: 14, fontWeight: 600, color: '#f1f3f4' }}>{title}</span>
-      <span style={{ fontSize: 12, color: 'rgba(154,160,166,0.7)', maxWidth: 280 }}>{sub}</span>
     </div>
   )
 }
@@ -200,154 +180,110 @@ export default function AdminPage() {
     }
   }
 
-  /* ══════════════════════════════════════════
-     LOGIN SCREEN
-  ══════════════════════════════════════════ */
+  /* ═════════════════════════════════════════════════════════
+     LOGIN SCREEN — RIDDLE UI NEO-BRUTALISM
+  ═════════════════════════════════════════════════════════ */
   if (!authed) {
     return (
-      <div
-        style={{
-          minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: 20, background: '#081DF4', position: 'relative', overflow: 'hidden',
-        }}
-      >
-        {/* Ambient glow */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,60,255,0.45) 0%, rgba(8,29,244,1) 70%)',
-          opacity: 0.6,
-        }} />
-
-        {/* Card */}
-        <div style={{
-          position: 'relative', zIndex: 10, width: '100%', maxWidth: 390,
-          borderRadius: 24, background: '#0a0e26',
-          border: '1px solid rgba(255,255,255,0.1)',
-          padding: '40px 32px 36px', boxSizing: 'border-box',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-        }}>
-          {/* Logo + Title */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 32 }}>
-            <div style={{ marginBottom: 16 }}>
-              <svg width="28" height="42" viewBox="0 0 436.752 665.228" fill="none">
-                <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
-                <path d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z" fill="#efefef" />
-              </svg>
+      <div className="riddle-grid-bg min-h-screen flex items-center justify-center p-5 select-none relative">
+        <div className="w-full max-w-[400px] bg-white border-[3px] border-black rounded-[24px] shadow-[8px_8px_0px_#000] p-8 sm:p-9 relative">
+          
+          {/* Top Decorative Dots */}
+          <div className="flex items-center justify-between pb-6 mb-6 border-b-2 border-black">
+            <div className="flex gap-1.5">
+              <span className="w-3 h-3 rounded-full border-2 border-black bg-[#E2442F]" />
+              <span className="w-3 h-3 rounded-full border-2 border-black bg-[#FFD027]" />
+              <span className="w-3 h-3 rounded-full border-2 border-black bg-[#11A365]" />
             </div>
-            <h1 style={{ fontSize: 20, fontWeight: 700, color: '#f1f3f4', margin: 0, letterSpacing: '-0.02em' }}>Konecta Account</h1>
-            <p style={{ fontSize: 12, color: 'rgba(154,160,166,0.8)', marginTop: 6, margin: '6px 0 0' }}>Painel de Controlo & Gestão de Acessos</p>
+
+            <div className="px-2.5 py-0.5 bg-[#B286FD] border-2 border-black rounded-full text-[10px] font-black uppercase shadow-[1px_1px_0px_#000]">
+              Admin Security
+            </div>
           </div>
 
-          {/* Error */}
+          <div className="flex flex-col items-center text-center mb-6">
+            <div className="mb-3">
+              <svg width="26" height="38" viewBox="0 0 436.752 665.228" fill="none">
+                <rect x="0" y="0" width="144.634" height="586.476" fill="#FFD027" stroke="#000" strokeWidth="24" />
+                <path
+                  d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
+                  fill="#FFFFFF"
+                  stroke="#000"
+                  strokeWidth="24"
+                />
+              </svg>
+            </div>
+            <h1 className="text-xl font-black uppercase tracking-tight text-black">Konecta Admin</h1>
+            <p className="text-xs font-semibold text-[#78716C] mt-1">Gestão de Acessos & Inscrições</p>
+          </div>
+
           {error && (
-            <div style={{
-              marginBottom: 20, padding: '12px 16px', borderRadius: 12,
-              background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)',
-              color: '#fca5a5', fontSize: 12, textAlign: 'center',
-            }}>{error}</div>
+            <div className="mb-5 p-3 rounded-xl bg-[#FEE2E2] border-2 border-black text-black font-bold text-xs shadow-[2px_2px_0px_#000]">
+              ⚠️ {error}
+            </div>
           )}
 
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Email */}
+          <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <div>
-              <label style={{ display: 'block', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(239,239,239,0.45)', marginBottom: 7 }}>
-                Email
+              <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5 text-black">
+                Email de Administrador
               </label>
-              <div style={{ position: 'relative' }}>
-                <Mail size={14} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(239,239,239,0.3)', pointerEvents: 'none' }} />
+              <div className="relative">
+                <Mail size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  placeholder="email@exemplo.com"
-                  style={{
-                    width: '100%', height: 46, padding: '0 16px 0 40px',
-                    borderRadius: 14, background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)', color: '#f1f3f4',
-                    fontSize: 14, outline: 'none', boxSizing: 'border-box',
-                    transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#dee054')}
-                  onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
+                  placeholder="admin@konecta.cv"
+                  className="w-full h-11 pl-10 pr-3.5 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                 />
               </div>
             </div>
 
-            {/* Password */}
             <div>
-              <label style={{ display: 'block', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(239,239,239,0.45)', marginBottom: 7 }}>
+              <label className="block text-[11px] font-extrabold uppercase tracking-wider mb-1.5 text-black">
                 Palavra-passe
               </label>
-              <div style={{ position: 'relative' }}>
+              <div className="relative">
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  style={{
-                    width: '100%', height: 46, padding: '0 42px 0 16px',
-                    borderRadius: 14, background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.12)', color: '#f1f3f4',
-                    fontSize: 14, outline: 'none', boxSizing: 'border-box',
-                    transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#dee054')}
-                  onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.12)')}
+                  className="w-full h-11 pl-3.5 pr-10 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[3px_3px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                   autoFocus
                 />
-                <Lock size={14} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(239,239,239,0.3)', pointerEvents: 'none' }} />
+                <Lock size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
               </div>
             </div>
 
-            {/* Submit */}
-            <div style={{ paddingTop: 8 }}>
+            <div className="pt-2">
               <button
                 type="submit"
                 disabled={loginLoading}
-                style={{
-                  width: '100%', height: 48, borderRadius: 999,
-                  backgroundColor: loginLoading ? 'rgba(222,224,84,0.55)' : '#dee054',
-                  color: '#081DF4', fontSize: 13, fontWeight: 700,
-                  letterSpacing: '0.04em', textTransform: 'uppercase',
-                  border: 'none', cursor: loginLoading ? 'not-allowed' : 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                  transition: 'filter 0.2s, transform 0.1s',
-                }}
-                onMouseEnter={e => !loginLoading && (e.currentTarget.style.filter = 'brightness(1.08)')}
-                onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
+                className="w-full py-3.5 px-4 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
               >
-                {loginLoading ? (
-                  <>
-                    <span style={{
-                      width: 14, height: 14, borderRadius: '50%',
-                      border: '2px solid #081DF4', borderTopColor: 'transparent',
-                      display: 'inline-block', animation: 'spin 0.7s linear infinite',
-                    }} />
-                    A entrar...
-                  </>
-                ) : 'Entrar no Painel →'}
+                {loginLoading ? 'A verificar...' : 'Entrar no Painel →'}
               </button>
             </div>
           </form>
 
-          <p style={{ textAlign: 'center', marginTop: 24, fontSize: 11, color: 'rgba(154,160,166,0.5)' }}>
-            Acesso restrito · Apenas administradores
+          <p className="text-center mt-6 text-[11px] font-bold text-[#78716C] uppercase tracking-wider">
+            Acesso Restrito · Dono da Plataforma
           </p>
         </div>
-
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     )
   }
 
-  /* ══════════════════════════════════════════
-     DASHBOARD
-  ══════════════════════════════════════════ */
+  /* ═════════════════════════════════════════════════════════
+     ADMIN DASHBOARD — RIDDLE UI NEO-BRUTALISM
+  ═════════════════════════════════════════════════════════ */
   const tabs = [
-    { id: 'registrations', label: `Inscrições (${data?.registrations?.length ?? 0})`, icon: Users },
-    { id: 'overview', label: 'Estatísticas', icon: Activity },
-    { id: 'visitors', label: 'Tráfego', icon: Globe },
-    { id: 'intrusions', label: 'Segurança', icon: ShieldCheck },
+    { id: 'registrations', label: `Inscrições (${data?.registrations?.length ?? 0})`, icon: Users, color: '#A2E435' },
+    { id: 'overview', label: 'Estatísticas', icon: Activity, color: '#FFD027' },
+    { id: 'visitors', label: 'Tráfego', icon: Globe, color: '#60A5F9' },
+    { id: 'intrusions', label: 'Segurança', icon: ShieldCheck, color: '#FF7051' },
   ] as const
 
   const filteredRegistrations = (data?.registrations ?? []).filter(r => {
@@ -360,232 +296,167 @@ export default function AdminPage() {
     return matchesSearch && matchesIsland
   })
 
-  const adminInitial = (adminEmail || email).charAt(0).toUpperCase()
-
   return (
-    <div style={{ minHeight: '100vh', background: '#070b1e', color: '#f1f3f4', display: 'flex', flexDirection: 'column', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-
-      {/* ── Top App Bar ── */}
-      <header style={{
-        position: 'sticky', top: 0, zIndex: 30,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 24px', height: 64,
-        background: 'rgba(13,19,51,0.92)', backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-      }}>
-        {/* Left: Logo + Name */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <svg width="18" height="27" viewBox="0 0 436.752 665.228" fill="none">
-              <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
-              <path d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z" fill="#efefef" />
+    <div className="riddle-grid-bg min-h-screen text-black flex flex-col font-sans">
+      
+      {/* ── Top Bar (Riddle UI Navigation Frame) ── */}
+      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white border-b-[3px] border-black shadow-[0_4px_0px_#000]">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5">
+            <svg width="20" height="28" viewBox="0 0 436.752 665.228" fill="none">
+              <rect x="0" y="0" width="144.634" height="586.476" fill="#FFD027" stroke="#000" strokeWidth="24" />
+              <path
+                d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
+                fill="#FFFFFF"
+                stroke="#000"
+                strokeWidth="24"
+              />
             </svg>
-            <span style={{ fontWeight: 600, fontSize: 15, color: '#f1f3f4', letterSpacing: '-0.02em' }}>
-              Konecta <span style={{ color: 'rgba(154,160,166,0.7)', fontWeight: 400 }}>Account</span>
+            <span className="font-black text-base uppercase tracking-tight">
+              Konecta <span className="bg-[#B286FD] px-2 py-0.5 border border-black rounded text-xs">Admin</span>
             </span>
           </div>
 
           {lastUpdated && (
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              fontSize: 11, color: '#dee054', padding: '4px 12px',
-              borderRadius: 999, background: 'rgba(222,224,84,0.1)',
-              border: '1px solid rgba(222,224,84,0.2)',
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#dee054', animation: 'pulse 2s infinite' }} />
-              Sync {lastUpdated}
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#A2E435] border-2 border-black shadow-[2px_2px_0px_#000]">
+              <span className="w-2 h-2 rounded-full bg-black animate-ping" />
+              Sync: {lastUpdated}
             </span>
           )}
         </div>
 
-        {/* Right: Actions + Admin Avatar */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="flex items-center gap-3">
           <button
             onClick={() => fetchData(token)}
             disabled={loading}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              fontSize: 12, padding: '7px 14px', borderRadius: 999,
-              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-              color: '#f1f3f4', cursor: 'pointer', transition: 'background 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+            className="flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
-            <RefreshCw size={13} style={{ animation: loading ? 'spin 0.8s linear infinite' : 'none' }} />
-            <span style={{ display: 'none' }}>Atualizar</span>
+            <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
+            <span className="hidden sm:inline">Atualizar</span>
           </button>
 
           <button
-            onClick={() => { setAuthed(false); setToken(''); setData(null) }}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              fontSize: 12, padding: '7px 14px', borderRadius: 999,
-              background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)',
-              color: '#fca5a5', cursor: 'pointer', transition: 'background 0.2s',
+            onClick={() => {
+              setAuthed(false)
+              setToken('')
+              setData(null)
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(239,68,68,0.22)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(239,68,68,0.12)')}
+            className="flex items-center gap-2 text-xs font-bold px-3.5 py-1.5 rounded-xl bg-[#E2442F] text-white border-2 border-black shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
             <LogOut size={13} />
-            <span style={{ display: 'none' }}>Sair</span>
+            <span>Sair</span>
           </button>
 
-          {/* Admin Avatar */}
+          {/* Admin Avatar Pill */}
           <div
             title={adminEmail || email}
-            style={{
-              width: 36, height: 36, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #dee054 0%, #c8c840 100%)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 14, fontWeight: 700, color: '#081DF4',
-              cursor: 'default', flexShrink: 0,
-              boxShadow: '0 0 0 2px rgba(222,224,84,0.3)',
-            }}
+            className="w-9 h-9 rounded-full bg-[#FFD027] border-2 border-black flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#000]"
           >
-            {adminInitial}
+            {(adminEmail || email).charAt(0).toUpperCase()}
           </div>
         </div>
       </header>
 
-      {/* ── Main ── */}
-      <main style={{ flex: 1, maxWidth: 1200, width: '100%', margin: '0 auto', padding: '32px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+      {/* ── Main Dashboard Container ── */}
+      <main className="flex-1 max-w-6xl w-full mx-auto p-5 sm:p-8 flex flex-col gap-6">
+        
+        {/* Title banner */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000]">
+          <div>
+            <div className="inline-block px-2.5 py-0.5 bg-[#B286FD] border border-black rounded text-[10px] font-black uppercase mb-1.5">
+              Dashboard de Controlo
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
+              Visão Geral da Plataforma
+            </h2>
+            <p className="text-xs sm:text-sm font-semibold text-[#78716C] mt-1">
+              Gere candidatos prioritários, visitantes e integridade da rede Konecta.
+            </p>
+          </div>
 
-        {/* Page heading */}
-        <div>
-          <h2 style={{ fontSize: 24, fontWeight: 700, color: '#f1f3f4', margin: 0, letterSpacing: '-0.02em' }}>Visão Geral da Plataforma</h2>
-          <p style={{ fontSize: 13, color: 'rgba(154,160,166,0.8)', marginTop: 6, margin: '6px 0 0' }}>
-            Monitoriza inscrições, visitas e a segurança da plataforma Konecta.cv em tempo real.
-          </p>
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FFD027] border-2 border-black rounded-xl text-xs font-black uppercase shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+          >
+            <span>Ver Landing Page</span>
+            <ArrowUpRight size={14} />
+          </a>
         </div>
 
-        {/* Error banner */}
-        {error && (
-          <div style={{
-            padding: '12px 16px', borderRadius: 12,
-            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)',
-            color: '#fca5a5', fontSize: 13,
-          }}>{error}</div>
-        )}
-
-        {/* Metric Cards */}
+        {/* 4 Neo-Brutalism Metric Cards */}
         {data && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-            <MetricCard
-              label="Total Konectados"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <NeoMetricCard
+              label="Total de Konectados"
               value={data.summary.totalRegistrations.toLocaleString()}
-              sub="Lista de espera prioritária"
+              sub="Lista de espera ativa"
               icon={Users}
-              color="#dee054"
-              bg="rgba(222,224,84,0.12)"
+              badgeColor="#A2E435"
             />
-            <MetricCard
+            <NeoMetricCard
               label="Visitantes Únicos"
               value={data.summary.totalVisitors.toLocaleString()}
-              sub="Audiência global registada"
-              icon={Eye}
-              color="#60a5fa"
-              bg="rgba(96,165,250,0.12)"
+              sub="Audiência global"
+              icon={Globe}
+              badgeColor="#60A5F9"
             />
-            <MetricCard
+            <NeoMetricCard
               label="Com Perfil Criado"
               value={(data.registrations?.filter(r => r.has_account).length || 0).toLocaleString()}
               sub="Utilizadores autenticados"
               icon={UserCheck}
-              color="#34d399"
-              bg="rgba(52,211,153,0.12)"
+              badgeColor="#B286FD"
             />
-            <MetricCard
+            <NeoMetricCard
               label="Ameaças Bloqueadas"
               value={data.summary.totalIntrusions.toLocaleString()}
-              sub="Scanners e ataques filtrados"
+              sub="Scanners neutralizados"
               icon={ShieldCheck}
-              color="#f87171"
-              bg="rgba(248,113,113,0.12)"
+              badgeColor="#FF7051"
             />
           </div>
         )}
 
-        {/* Loading skeleton */}
-        {loading && !data && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-            {[...Array(4)].map((_, i) => (
-              <div key={i} style={{
-                height: 130, borderRadius: 20, background: '#0d1333',
-                border: '1px solid rgba(255,255,255,0.08)',
-                animation: 'pulse 1.5s ease-in-out infinite',
-              }} />
-            ))}
-          </div>
-        )}
-
-        {/* Tabs */}
-        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 2 }}>
+        {/* Neo-Brutalist Tabs */}
+        <div className="flex gap-2 overflow-x-auto pb-1">
           {tabs.map(tab => {
-            const active = activeTab === tab.id
+            const isActive = activeTab === tab.id
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  fontSize: 12, padding: '8px 18px', borderRadius: 999,
-                  fontWeight: active ? 700 : 500, whiteSpace: 'nowrap',
-                  backgroundColor: active ? '#dee054' : 'rgba(255,255,255,0.06)',
-                  color: active ? '#081DF4' : 'rgba(154,160,166,0.9)',
-                  border: active ? 'none' : '1px solid rgba(255,255,255,0.08)',
-                  cursor: 'pointer', transition: 'all 0.2s',
-                }}
-                onMouseEnter={e => !active && (e.currentTarget.style.background = 'rgba(255,255,255,0.11)')}
-                onMouseLeave={e => !active && (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${isActive ? 'bg-black text-white shadow-[3px_3px_0px_' + tab.color + ']' : 'bg-white text-black shadow-[3px_3px_0px_#000] hover:bg-[#F5F5F4]'}`}
               >
-                <tab.icon size={13} />
-                {tab.label}
+                <tab.icon size={14} />
+                <span>{tab.label}</span>
               </button>
             )
           })}
         </div>
 
-        {/* ══ TAB: REGISTRATIONS ══ */}
+        {/* TAB 1: REGISTRATIONS */}
         {activeTab === 'registrations' && data && (
-          <div style={{
-            borderRadius: 24, background: '#0d1333',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)', overflow: 'hidden',
-          }}>
-            {/* Search & Filter header */}
-            <div style={{
-              padding: '18px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)',
-              display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'space-between',
-            }}>
-              <div style={{ position: 'relative', flex: 1, minWidth: 200, maxWidth: 360 }}>
-                <Search size={14} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(154,160,166,0.6)', pointerEvents: 'none' }} />
+          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000] overflow-hidden flex flex-col">
+            
+            {/* Search & Filter Bar */}
+            <div className="p-4 sm:p-5 border-b-2 border-black flex flex-col sm:flex-row gap-3.5 items-stretch sm:items-center justify-between bg-[#F5F5F4]">
+              <div className="relative flex-1 max-w-md">
+                <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
                 <input
                   type="text"
-                  placeholder="Nome, telefone, email ou ilha..."
+                  placeholder="Pesquisar por nome, telefone ou ilha..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  style={{
-                    width: '100%', height: 38, padding: '0 16px 0 40px',
-                    borderRadius: 999, background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.1)', color: '#f1f3f4',
-                    fontSize: 12, outline: 'none', boxSizing: 'border-box',
-                    transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => (e.target.style.borderColor = '#dee054')}
-                  onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
+                  className="w-full bg-white border-2 border-black pl-10 pr-4 py-2 text-xs font-semibold rounded-xl text-black placeholder-[#78716C] outline-none shadow-[2px_2px_0px_#000]"
                 />
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Filter size={13} style={{ color: 'rgba(154,160,166,0.6)' }} />
+
+              <div className="flex items-center gap-2">
+                <Filter size={14} className="text-[#78716C]" />
                 <select
                   value={filterIsland}
                   onChange={e => setFilterIsland(e.target.value)}
-                  style={{
-                    height: 38, padding: '0 16px', borderRadius: 999,
-                    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-                    color: '#f1f3f4', fontSize: 12, outline: 'none', cursor: 'pointer',
-                  }}
+                  className="bg-white border-2 border-black text-xs font-bold rounded-xl px-4 py-2 text-black outline-none shadow-[2px_2px_0px_#000] cursor-pointer"
                 >
                   <option value="ALL">Todas as Ilhas</option>
                   <option value="Santiago">Santiago</option>
@@ -599,270 +470,188 @@ export default function AdminPage() {
                   <option value="Brava">Brava</option>
                   <option value="Diáspora">Diáspora</option>
                 </select>
-                <span style={{ fontSize: 11, color: 'rgba(154,160,166,0.6)', paddingLeft: 4 }}>
-                  {filteredRegistrations.length} resultados
+                <span className="text-xs font-mono font-bold ml-1 text-[#78716C]">
+                  {filteredRegistrations.length}
                 </span>
               </div>
             </div>
 
             {/* Table */}
-            {filteredRegistrations.length === 0 ? (
-              <EmptyState
-                icon={Users}
-                title="Nenhum registo encontrado"
-                sub="Ajusta os filtros ou aguarda as primeiras inscrições da plataforma."
-              />
-            ) : (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', fontSize: 12, borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}>
-                      {['Data & Hora', 'Nome Completo', 'Contacto', 'Localização', 'Perfil', 'País'].map(h => (
-                        <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(154,160,166,0.7)', whiteSpace: 'nowrap' }}>
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredRegistrations.map((r, i) => (
-                      <tr
-                        key={i}
-                        style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', transition: 'background 0.15s' }}
-                        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
-                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                      >
-                        <td style={{ padding: '14px 20px', color: 'rgba(154,160,166,0.8)', whiteSpace: 'nowrap' }}>
-                          {new Date(r.created_at).toLocaleString('pt-PT')}
-                        </td>
-                        <td style={{ padding: '14px 20px', fontWeight: 600, color: '#f1f3f4' }}>{r.name}</td>
-                        <td style={{ padding: '14px 20px' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#dee054', fontFamily: 'monospace' }}>
-                              <Phone size={10} style={{ opacity: 0.7 }} /> {r.phone || '—'}
-                            </span>
-                            {r.email && (
-                              <span style={{ display: 'flex', alignItems: 'center', gap: 5, color: 'rgba(154,160,166,0.7)', fontSize: 11 }}>
-                                <Mail size={10} /> {r.email}
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td style={{ padding: '14px 20px' }}>
-                          <span style={{
-                            display: 'inline-flex', alignItems: 'center', gap: 5,
-                            padding: '4px 10px', borderRadius: 999,
-                            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                            fontSize: 11, color: '#f1f3f4', whiteSpace: 'nowrap',
-                          }}>
-                            <MapPin size={10} style={{ color: '#dee054' }} />
-                            {r.island || '—'}
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="border-b-2 border-black bg-white uppercase text-[10px] font-black tracking-wider text-[#78716C]">
+                    <th className="px-6 py-3.5">Data/Hora</th>
+                    <th className="px-6 py-3.5">Nome Completo</th>
+                    <th className="px-6 py-3.5">Contacto</th>
+                    <th className="px-6 py-3.5">Localização</th>
+                    <th className="px-6 py-3.5">Perfil</th>
+                    <th className="px-6 py-3.5">País</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y-2 divide-black/10">
+                  {filteredRegistrations.map((r, i) => (
+                    <tr key={i} className="hover:bg-[#F5F5F4] transition-colors">
+                      <td className="px-6 py-4 font-mono text-[#78716C]">
+                        {new Date(r.created_at).toLocaleString('pt-PT')}
+                      </td>
+                      <td className="px-6 py-4 font-extrabold text-black text-sm">{r.name}</td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col gap-1">
+                          <span className="font-mono font-bold text-black flex items-center gap-1.5">
+                            <Phone size={12} className="text-[#FF7051]" /> {r.phone || '—'}
                           </span>
-                        </td>
-                        <td style={{ padding: '14px 20px' }}>
-                          {r.has_account ? (
-                            <span style={{
-                              display: 'inline-flex', alignItems: 'center', gap: 4,
-                              padding: '3px 10px', borderRadius: 999,
-                              background: 'rgba(52,211,153,0.12)', border: '1px solid rgba(52,211,153,0.25)',
-                              fontSize: 10, color: '#34d399', fontWeight: 600,
-                            }}>
-                              <UserCheck size={10} /> Sim
+                          {r.email && (
+                            <span className="text-[11px] font-medium text-[#78716C] flex items-center gap-1.5">
+                              <Mail size={11} /> {r.email}
                             </span>
-                          ) : (
-                            <span style={{ fontSize: 11, color: 'rgba(154,160,166,0.5)' }}>—</span>
                           )}
-                        </td>
-                        <td style={{ padding: '14px 20px', color: 'rgba(154,160,166,0.8)' }}>{r.country || 'CV'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#FFFDF5] border border-black text-[11px] font-bold shadow-[1px_1px_0px_#000]">
+                          <MapPin size={11} className="text-[#FFD027]" />
+                          {r.island || '—'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        {r.has_account ? (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#A2E435] border border-black text-[10px] font-black uppercase shadow-[1px_1px_0px_#000]">
+                            <CheckCircle2 size={11} /> Criado
+                          </span>
+                        ) : (
+                          <span className="text-[#78716C] font-mono">—</span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 font-bold text-[#78716C]">{r.country || 'CV'}</td>
+                    </tr>
+                  ))}
+
+                  {filteredRegistrations.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="px-6 py-12 text-center text-[#78716C] font-semibold">
+                        Nenhum registo encontrado com estes critérios.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
-        {/* ══ TAB: OVERVIEW ══ */}
+        {/* TAB 2: OVERVIEW */}
         {activeTab === 'overview' && data && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
-            {/* Island Stats */}
-            <div style={{
-              padding: 24, borderRadius: 24, background: '#0d1333',
-              border: '1px solid rgba(255,255,255,0.08)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                <MapPin size={15} style={{ color: '#dee054' }} />
-                <h3 style={{ fontSize: 13, fontWeight: 600, color: '#dee054', margin: 0 }}>Inscrições por Ilha</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000]">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-7 h-7 rounded-lg border-2 border-black bg-[#FFD027] flex items-center justify-center shadow-[1px_1px_0px_#000]">
+                  <MapPin size={15} />
+                </div>
+                <h3 className="text-sm font-black uppercase">Inscrições por Ilha</h3>
               </div>
               {data.islandStats.length > 0 ? (
-                <BarChart data={data.islandStats.map(d => ({ label: d.island, value: d.count }))} color="#dee054" />
+                <NeoBarChart data={data.islandStats.map(d => ({ label: d.island, value: d.count }))} color="#FFD027" />
               ) : (
-                <p style={{ fontSize: 12, color: 'rgba(154,160,166,0.6)' }}>Sem inscrições ainda.</p>
+                <p className="text-xs text-[#78716C]">Sem dados de ilhas ainda.</p>
               )}
             </div>
 
-            {/* Country Stats */}
-            <div style={{
-              padding: 24, borderRadius: 24, background: '#0d1333',
-              border: '1px solid rgba(255,255,255,0.08)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                <Globe size={15} style={{ color: '#60a5fa' }} />
-                <h3 style={{ fontSize: 13, fontWeight: 600, color: '#60a5fa', margin: 0 }}>Origem Geográfica do Tráfego</h3>
+            <div className="p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000]">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-7 h-7 rounded-lg border-2 border-black bg-[#60A5F9] flex items-center justify-center shadow-[1px_1px_0px_#000]">
+                  <Globe size={15} />
+                </div>
+                <h3 className="text-sm font-black uppercase">Origem do Tráfego</h3>
               </div>
               {data.countryStats.length > 0 ? (
-                <BarChart data={data.countryStats.slice(0, 10).map(d => ({ label: d.country, value: d.count }))} color="#60a5fa" />
+                <NeoBarChart data={data.countryStats.slice(0, 8).map(d => ({ label: d.country, value: d.count }))} color="#60A5F9" />
               ) : (
-                <p style={{ fontSize: 12, color: 'rgba(154,160,166,0.6)' }}>Sem dados geográficos.</p>
+                <p className="text-xs text-[#78716C]">Sem dados de tráfego geográfico.</p>
               )}
             </div>
-
-            {/* Intrusion types */}
-            {data.intrusionTypeStats.length > 0 && (
-              <div style={{
-                padding: 24, borderRadius: 24, background: '#0d1333',
-                border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                  <ShieldCheck size={15} style={{ color: '#f87171' }} />
-                  <h3 style={{ fontSize: 13, fontWeight: 600, color: '#f87171', margin: 0 }}>Tipos de Ameaças</h3>
-                </div>
-                <BarChart data={data.intrusionTypeStats.map(d => ({ label: d.type, value: d.count }))} color="#f87171" />
-              </div>
-            )}
-
-            {/* Trend card */}
-            <div style={{
-              padding: 24, borderRadius: 24, background: 'linear-gradient(135deg, #0d1333 0%, #111a40 100%)',
-              border: '1px solid rgba(222,224,84,0.15)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                <TrendingUp size={15} style={{ color: '#dee054' }} />
-                <h3 style={{ fontSize: 13, fontWeight: 600, color: '#dee054', margin: 0 }}>Resumo Rápido</h3>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {[
-                  { label: 'Taxa de conversão', value: data.summary.totalVisitors > 0 ? `${((data.summary.totalRegistrations / data.summary.totalVisitors) * 100).toFixed(1)}%` : '—', color: '#dee054' },
-                  { label: 'Visitantes totais', value: data.summary.totalVisitors.toLocaleString(), color: '#60a5fa' },
-                  { label: 'Com perfil', value: `${data.registrations?.filter(r => r.has_account).length || 0}`, color: '#34d399' },
-                  { label: 'Ameaças bloqueadas', value: data.summary.totalIntrusions.toLocaleString(), color: '#f87171' },
-                ].map(({ label, value, color }) => (
-                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 12, color: 'rgba(154,160,166,0.8)' }}>{label}</span>
-                    <span style={{ fontSize: 14, fontWeight: 700, color }}>{value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         )}
 
-        {/* ══ TAB: VISITORS ══ */}
+        {/* TAB 3: VISITORS */}
         {activeTab === 'visitors' && data && (
-          <div style={{
-            borderRadius: 24, background: '#0d1333',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)', overflow: 'hidden',
-          }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <Eye size={14} style={{ color: '#60a5fa' }} />
-              <h3 style={{ fontSize: 13, fontWeight: 600, color: '#60a5fa', margin: 0 }}>
-                Registos de Tráfego Recentes ({data.recentVisitors.length})
-              </h3>
+          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000] overflow-hidden">
+            <div className="p-4 sm:p-5 border-b-2 border-black bg-[#F5F5F4] flex items-center justify-between">
+              <h3 className="text-sm font-black uppercase">Tráfego Recente ({data.recentVisitors.length})</h3>
+              <span className="text-xs font-mono font-bold px-2 py-0.5 bg-[#60A5F9] border border-black rounded">
+                IPs Ativos
+              </span>
             </div>
-            {data.recentVisitors.length === 0 ? (
-              <EmptyState icon={Globe} title="Sem registos de tráfego" sub="Os visitantes aparecerão aqui assim que acederem à plataforma." />
-            ) : (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', fontSize: 12, borderCollapse: 'collapse' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}>
-                      {['Data/Hora', 'IP de Origem', 'País', 'Cidade', 'Página'].map(h => (
-                        <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(154,160,166,0.7)', whiteSpace: 'nowrap' }}>{h}</th>
-                      ))}
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left">
+                <thead>
+                  <tr className="border-b-2 border-black bg-white uppercase text-[10px] font-black text-[#78716C]">
+                    <th className="px-6 py-3">Data/Hora</th>
+                    <th className="px-6 py-3">IP de Origem</th>
+                    <th className="px-6 py-3">País</th>
+                    <th className="px-6 py-3">Cidade</th>
+                    <th className="px-6 py-3">Página</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y-2 divide-black/10">
+                  {data.recentVisitors.map((v, i) => (
+                    <tr key={i} className="hover:bg-[#F5F5F4]">
+                      <td className="px-6 py-3 font-mono text-[#78716C]">
+                        {new Date(v.created_at as string).toLocaleString('pt-PT')}
+                      </td>
+                      <td className="px-6 py-3 font-mono font-bold text-black">{v.ip_address as string}</td>
+                      <td className="px-6 py-3 font-bold">{v.country as string}</td>
+                      <td className="px-6 py-3">{v.city as string}</td>
+                      <td className="px-6 py-3 font-mono text-[#78716C]">{v.path as string}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {data.recentVisitors.map((v, i) => (
-                      <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', transition: 'background 0.15s' }}
-                        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
-                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-                        <td style={{ padding: '12px 20px', color: 'rgba(154,160,166,0.8)', whiteSpace: 'nowrap' }}>{new Date(v.created_at as string).toLocaleString('pt-PT')}</td>
-                        <td style={{ padding: '12px 20px', fontFamily: 'monospace', color: 'rgba(241,243,244,0.8)' }}>{v.ip_address as string}</td>
-                        <td style={{ padding: '12px 20px', color: '#dee054', fontWeight: 600 }}>{v.country as string}</td>
-                        <td style={{ padding: '12px 20px', color: '#f1f3f4' }}>{v.city as string}</td>
-                        <td style={{ padding: '12px 20px', fontFamily: 'monospace', color: 'rgba(154,160,166,0.7)' }}>{v.path as string}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
-        {/* ══ TAB: INTRUSIONS ══ */}
+        {/* TAB 4: INTRUSIONS */}
         {activeTab === 'intrusions' && data && (
-          <div style={{
-            borderRadius: 24, background: '#0d1333',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: '0 4px 24px rgba(0,0,0,0.25)', overflow: 'hidden',
-          }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <ShieldCheck size={14} style={{ color: '#f87171' }} />
-                <h3 style={{ fontSize: 13, fontWeight: 600, color: '#f87171', margin: 0 }}>
-                  Auditoria de Segurança ({data.recentIntrusions.length})
-                </h3>
-              </div>
-              <span style={{
-                fontSize: 10, color: '#34d399', padding: '4px 10px', borderRadius: 999,
-                background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)',
-                fontWeight: 600, letterSpacing: '0.04em',
-              }}>
-                ● PROTEÇÃO ATIVA
+          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[6px_6px_0px_#000] overflow-hidden">
+            <div className="p-4 sm:p-5 border-b-2 border-black bg-[#F5F5F4] flex items-center justify-between">
+              <h3 className="text-sm font-black uppercase text-[#E2442F]">
+                Auditoria de Segurança ({data.recentIntrusions.length})
+              </h3>
+              <span className="text-xs font-bold px-2.5 py-0.5 bg-[#A2E435] border border-black rounded-full shadow-[1px_1px_0px_#000]">
+                ● Proteção Ativa
               </span>
             </div>
             {data.recentIntrusions.length === 0 ? (
-              <div style={{ padding: '64px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <CheckCircle2 size={24} style={{ color: '#34d399' }} />
-                </div>
-                <span style={{ fontSize: 14, fontWeight: 600, color: '#f1f3f4' }}>Ambiente Seguro</span>
-                <span style={{ fontSize: 12, color: 'rgba(154,160,166,0.7)' }}>Nenhuma intrusão ou scanner detetado.</span>
+              <div className="p-12 text-center flex flex-col items-center gap-2">
+                <CheckCircle2 size={32} className="text-[#11A365]" />
+                <h4 className="font-black text-sm uppercase">Nenhuma Ameaça Encontrada</h4>
+                <p className="text-xs text-[#78716C]">O firewall e filtros anti-bot estão a proteger a plataforma normalmente.</p>
               </div>
             ) : (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', fontSize: 12, borderCollapse: 'collapse' }}>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs text-left">
                   <thead>
-                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}>
-                      {['Data/Hora', 'IP', 'Tipo de Ataque', 'Destino'].map(h => (
-                        <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(154,160,166,0.7)', whiteSpace: 'nowrap' }}>{h}</th>
-                      ))}
+                    <tr className="border-b-2 border-black bg-white uppercase text-[10px] font-black text-[#78716C]">
+                      <th className="px-6 py-3">Data/Hora</th>
+                      <th className="px-6 py-3">IP</th>
+                      <th className="px-6 py-3">Tipo de Ataque</th>
+                      <th className="px-6 py-3">Destino</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y-2 divide-black/10">
                     {data.recentIntrusions.map((v, i) => (
-                      <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', transition: 'background 0.15s' }}
-                        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
-                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-                        <td style={{ padding: '12px 20px', color: 'rgba(154,160,166,0.8)', whiteSpace: 'nowrap' }}>{new Date(v.created_at as string).toLocaleString('pt-PT')}</td>
-                        <td style={{ padding: '12px 20px', fontFamily: 'monospace', color: '#f87171' }}>{v.ip_address as string}</td>
-                        <td style={{ padding: '12px 20px' }}>
-                          <span style={{
-                            padding: '3px 10px', borderRadius: 999,
-                            background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.25)',
-                            color: '#fbbf24', fontSize: 11, fontFamily: 'monospace',
-                          }}>
+                      <tr key={i} className="hover:bg-[#F5F5F4]">
+                        <td className="px-6 py-3 font-mono text-[#78716C]">
+                          {new Date(v.created_at as string).toLocaleString('pt-PT')}
+                        </td>
+                        <td className="px-6 py-3 font-mono font-bold text-[#E2442F]">{v.ip_address as string}</td>
+                        <td className="px-6 py-3">
+                          <span className="px-2 py-0.5 rounded bg-[#FEE2E2] border border-black text-[10px] font-mono font-bold">
                             {v.intrusion_type as string}
                           </span>
                         </td>
-                        <td style={{ padding: '12px 20px', fontFamily: 'monospace', color: 'rgba(154,160,166,0.7)' }}>{v.path as string}</td>
+                        <td className="px-6 py-3 font-mono text-[#78716C]">{v.path as string}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -871,12 +660,8 @@ export default function AdminPage() {
             )}
           </div>
         )}
-      </main>
 
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-      `}</style>
+      </main>
     </div>
   )
 }

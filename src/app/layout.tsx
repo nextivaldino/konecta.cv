@@ -1,15 +1,22 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Space_Grotesk, Inter } from 'next/font/google'
 import './globals.css'
 
-const jakarta = Plus_Jakarta_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
-  title: 'Konecta — Cabo Verde',
-  description: 'Konecta.cv',
+  title: 'Konecta — Neo-Brutalism | Cabo Verde',
+  description: 'Konecta.cv — Neo-Brutalism Design System',
 }
 
 export default function RootLayout({
@@ -18,8 +25,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt">
-      <body className={jakarta.className}>{children}</body>
+    <html lang="pt" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="font-sans antialiased selection:bg-[#FFD027] selection:text-black">
+        {children}
+      </body>
     </html>
   )
 }

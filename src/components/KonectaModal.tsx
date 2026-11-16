@@ -13,7 +13,7 @@ function NeoKMark() {
   return (
     <div className="flex items-center gap-2">
       <svg width="24" height="34" viewBox="0 0 436.752 665.228" fill="none" className="overflow-visible drop-shadow-[2px_2px_0px_#000]">
-        <path d={barPath} fill="#FFD027" stroke="#000000" strokeWidth="24" />
+        <path d={barPath} fill="#A2E435" stroke="#000000" strokeWidth="24" />
         <path d={curvePath} fill="#FFFFFF" stroke="#000000" strokeWidth="24" />
       </svg>
       <span className="font-extrabold text-lg tracking-tight uppercase">Konecta</span>

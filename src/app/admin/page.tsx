@@ -204,7 +204,7 @@ export default function AdminPage() {
           <div className="flex flex-col items-center text-center mb-6">
             <div className="mb-3">
               <svg width="26" height="38" viewBox="0 0 436.752 665.228" fill="none">
-                <rect x="0" y="0" width="144.634" height="586.476" fill="#FFD027" stroke="#000" strokeWidth="24" />
+                <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="24" />
                 <path
                   d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
                   fill="#FFFFFF"
@@ -304,7 +304,7 @@ export default function AdminPage() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
             <svg width="20" height="28" viewBox="0 0 436.752 665.228" fill="none">
-              <rect x="0" y="0" width="144.634" height="586.476" fill="#FFD027" stroke="#000" strokeWidth="24" />
+              <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="24" />
               <path
                 d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
                 fill="#FFFFFF"

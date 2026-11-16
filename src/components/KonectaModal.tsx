@@ -73,14 +73,14 @@ export default function KonectaModal({
             layout
             style={{
               position: 'relative',
-              width: '100%',
-              maxWidth: 380,
+              width: 400,
               borderRadius: 28,
               background: 'rgba(10, 14, 38, 0.98)',
               border: '0.5px solid rgba(255,255,255,0.09)',
               boxShadow: '0 2px 0 0.5px rgba(255,255,255,0.05) inset, 0 28px 56px rgba(0,0,0,0.65)',
-              padding: '24px 24px 20px',
+              padding: '24px 28px 20px',
               overflow: 'hidden',
+              boxSizing: 'border-box',
             }}
             initial={{ scale: 0.92, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -174,6 +174,7 @@ export default function KonectaModal({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                 >
                   <p style={{ color: '#efefef', fontSize: 17, fontWeight: 650, letterSpacing: '-0.3px', marginBottom: 18 }}>
                     Os teus dados

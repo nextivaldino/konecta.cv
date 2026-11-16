@@ -22,12 +22,19 @@ select option {
   color: #efefef;
 }
 
-/* Remove double arrow on selects — all browsers */
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+/* Remove ALL native arrows on selects — all browsers */
+select,
+select.custom-select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
 }
 select::-ms-expand {
+  display: none !important;
+}
+/* Chrome/Safari extra insurance */
+select::-webkit-inner-spin-button,
+select::-webkit-outer-spin-button {
   display: none;
 }

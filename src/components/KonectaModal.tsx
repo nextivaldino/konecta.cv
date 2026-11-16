@@ -325,8 +325,8 @@ export default function KonectaModal({
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                marginBottom: 16,
+                alignItems: 'center',
+                marginBottom: 24,
               }}
             >
               <KMark />
@@ -370,32 +370,33 @@ export default function KonectaModal({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.18 }}
+                  style={{ display: 'flex', flexDirection: 'column' }}
                 >
                   <p
                     style={{
                       color: '#efefef',
-                      fontSize: 19,
+                      fontSize: 20,
                       fontWeight: 650,
                       letterSpacing: '-0.3px',
                       lineHeight: 1.25,
-                      marginBottom: 8,
+                      marginBottom: 10,
                     }}
                   >
                     Konectar-se?
                   </p>
                   <p
                     style={{
-                      color: 'rgba(239,239,239,0.55)',
-                      fontSize: 13,
-                      lineHeight: 1.6,
-                      marginBottom: 20,
+                      color: 'rgba(239,239,239,0.60)',
+                      fontSize: 13.5,
+                      lineHeight: 1.65,
+                      marginBottom: 36, // dá espaço para respirar e desce o botão
                     }}
                   >
                     Queres Konectar-se para poderes receber algumas novidades em breve e participar em algo especial?
                   </p>
 
-                  {/* Botão menor estilo pílula com "Konect..." e bolinhas pulsantes */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                  {/* Botão Konecta estilo pílula com bolinhas animadas */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                     <motion.button
                       onClick={() => setStep('form')}
                       whileHover={{ scale: 1.03 }}
@@ -404,13 +405,13 @@ export default function KonectaModal({
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 10,
-                        padding: '9px 24px',
+                        gap: 12,
+                        padding: '11px 28px',
                         borderRadius: 999, // pílula
                         background: '#dee054',
                         color: '#081DF4',
                         fontWeight: 700,
-                        fontSize: 13,
+                        fontSize: 13.5,
                         letterSpacing: '0.04em',
                         border: 'none',
                         cursor: 'pointer',
@@ -465,7 +466,7 @@ export default function KonectaModal({
                       display: 'block',
                       width: '100%',
                       padding: '8px 24px',
-                      borderRadius: 999, // estilo pílula
+                      borderRadius: 999,
                       background: 'transparent',
                       border: 'none',
                       color: 'rgba(239,239,239,0.35)',
@@ -896,20 +897,6 @@ export default function KonectaModal({
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Footer */}
-            <div style={{ marginTop: 18, textAlign: 'center' }}>
-              <span
-                style={{
-                  fontSize: 9.5,
-                  letterSpacing: '0.18em',
-                  color: 'rgba(239,239,239,0.20)',
-                  userSelect: 'none',
-                }}
-              >
-                www.konecta.cv
-              </span>
-            </div>
           </motion.div>
         </div>
       )}

@@ -1,15 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@supabase/supabase-js'
 import { supabaseAdmin } from '@/lib/supabase'
 
-function checkAuth(request: NextRequest): boolean {
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'ivaldinofortes@gmail.com'
+
+async function checkAuth(request: NextRequest): Promise<boolean> {
   const auth = request.headers.get('authorization')
   if (!auth) return false
   const token = auth.replace('Bearer ', '')
-  return token === (process.env.ADMIN_PASSWORD || 'konecta2026!')
+
+  try {
+    // Verify the JWT with Supabase
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    const { data: { user }, error } = await supabase.auth.getUser(token)
+    if (error || !user) return false
+    return user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+  } catch {
+    return false
+  }
 }
 
 export async function GET(request: NextRequest) {
-  if (!checkAuth(request)) {
+  if (!(await checkAuth(request))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

@@ -44,8 +44,10 @@ type AdminData = {
 }
 
 export default function AdminPage() {
+  const [email, setEmail] = useState('ivaldinofortes@gmail.com')
   const [password, setPassword] = useState('')
   const [authed, setAuthed] = useState(false)
+  const [loginLoading, setLoginLoading] = useState(false)
   const [token, setToken] = useState('')
   const [data, setData] = useState<AdminData | null>(null)
   const [loading, setLoading] = useState(false)
@@ -65,7 +67,7 @@ export default function AdminPage() {
       if (res.status === 401) {
         setAuthed(false)
         setToken('')
-        setError('Sessão expirada ou password incorreta.')
+        setError('Sessão expirada. Faça login novamente.')
         return
       }
       if (!res.ok) throw new Error('Erro ao carregar dados')
@@ -86,10 +88,28 @@ export default function AdminPage() {
     return () => clearInterval(interval)
   }, [authed, token, fetchData])
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
-    setToken(password)
-    setAuthed(true)
+    setLoginLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        setError(json.error || 'Credenciais inválidas.')
+        return
+      }
+      setToken(json.token)
+      setAuthed(true)
+    } catch {
+      setError('Erro de ligação ao servidor.')
+    } finally {
+      setLoginLoading(false)
+    }
   }
 
   /* ── TELA DE LOGIN ESTILO GOOGLE ACCOUNT (Material 3 Surface Container) ── */
@@ -109,7 +129,7 @@ export default function AdminPage() {
           }}
         />
 
-        {/* Card Login - Google Material You Surface Card com respiro e layout equilibrado */}
+        {/* Card Login */}
         <div
           className="relative z-10 w-full border border-white/10"
           style={{
@@ -143,6 +163,48 @@ export default function AdminPage() {
           )}
 
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {/* Email field */}
+            <div>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: 10,
+                  fontWeight: 600,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(239,239,239,0.5)',
+                  marginBottom: 6,
+                  paddingLeft: 2,
+                }}
+              >
+                Email
+              </label>
+              <div style={{ position: 'relative', width: '100%' }}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="email@exemplo.com"
+                  style={{
+                    width: '100%',
+                    height: 46,
+                    padding: '0 16px',
+                    borderRadius: 14,
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#f1f3f4',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.2s',
+                  }}
+                  onFocus={e => (e.target.style.borderColor = '#dee054')}
+                  onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
+                />
+              </div>
+            </div>
+
+            {/* Password field */}
             <div>
               <label
                 style={{
@@ -163,7 +225,7 @@ export default function AdminPage() {
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  placeholder="Introduza a palavra-passe"
+                  placeholder="••••••••"
                   style={{
                     width: '100%',
                     height: 46,
@@ -201,31 +263,49 @@ export default function AdminPage() {
             <div style={{ paddingTop: 8 }}>
               <button
                 type="submit"
+                disabled={loginLoading}
                 style={{
                   width: '100%',
                   height: 46,
                   borderRadius: 999,
-                  backgroundColor: '#dee054',
+                  backgroundColor: loginLoading ? 'rgba(222,224,84,0.6)' : '#dee054',
                   color: '#081DF4',
                   fontSize: 13,
                   fontWeight: 700,
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: loginLoading ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  gap: 8,
                   transition: 'filter 0.2s',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
+                onMouseEnter={e => !loginLoading && (e.currentTarget.style.filter = 'brightness(1.06)')}
                 onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
               >
-                Seguinte →
+                {loginLoading ? (
+                  <>
+                    <span style={{
+                      width: 14, height: 14, borderRadius: '50%',
+                      border: '2px solid #081DF4', borderTopColor: 'transparent',
+                      display: 'inline-block', animation: 'spin 0.7s linear infinite'
+                    }} />
+                    A entrar...
+                  </>
+                ) : 'Entrar no Painel →'}
               </button>
             </div>
           </form>
+
+          {/* Footer hint */}
+          <p style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'rgba(154,160,166,0.6)' }}>
+            Acesso restrito · Apenas administradores
+          </p>
         </div>
+
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     )
   }

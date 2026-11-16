@@ -45,18 +45,17 @@ export default function Home() {
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
-            padding: '12px 30px',
-            borderRadius: '999px',
-            backgroundColor: 'rgba(239,239,239,0.10)',
-            border: '0.5px solid rgba(255,255,255,0.22)',
+            padding: '11px 26px',
+            borderRadius: '999px', // estilo pílula
+            backgroundColor: 'rgba(239,239,239,0.08)',
+            border: '1px solid rgba(255,255,255,0.18)',
             color: '#efefef',
             fontSize: '13px',
             fontWeight: 500,
             letterSpacing: '0.12em',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            boxShadow:
-              '0 8px 32px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.18)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            boxShadow: 'none', // removed heavy shadow
             cursor: 'pointer',
           }}
         >

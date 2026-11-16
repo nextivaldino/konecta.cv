@@ -142,36 +142,84 @@ export default function AdminPage() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
-              <label className="block text-[10px] font-semibold tracking-wider uppercase text-white/45 mb-1.5 pl-1">
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: 10,
+                  fontWeight: 600,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(239,239,239,0.5)',
+                  marginBottom: 6,
+                  paddingLeft: 2,
+                }}
+              >
                 Palavra-passe
               </label>
-              <div className="relative">
+              <div style={{ position: 'relative', width: '100%' }}>
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Introduza a palavra-passe"
-                  className="w-full bg-white/[0.06] border border-white/15 px-4 py-3 text-sm text-[#f1f3f4] placeholder-[#9aa0a6] outline-none transition-colors focus:border-[#dee054]"
-                  style={{ borderRadius: '12px', boxSizing: 'border-box' }}
+                  style={{
+                    width: '100%',
+                    height: 46,
+                    padding: '0 42px 0 16px',
+                    borderRadius: 14,
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#f1f3f4',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.2s',
+                  }}
+                  onFocus={e => (e.target.style.borderColor = '#dee054')}
+                  onBlur={e => (e.target.style.borderColor = 'rgba(255,255,255,0.15)')}
                   autoFocus
                 />
-                <Lock size={15} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/35 pointer-events-none" />
+                <span
+                  style={{
+                    position: 'absolute',
+                    right: 14,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: 'rgba(239,239,239,0.4)',
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Lock size={16} />
+                </span>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div style={{ paddingTop: 8 }}>
               <button
                 type="submit"
-                className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all hover:brightness-105 active:scale-[0.98]"
                 style={{
+                  width: '100%',
+                  height: 46,
+                  borderRadius: 999,
                   backgroundColor: '#dee054',
                   color: '#081DF4',
-                  borderRadius: 999,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
                   border: 'none',
                   cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'filter 0.2s',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
+                onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
               >
                 Seguinte →
               </button>

@@ -420,29 +420,38 @@ export default function KonectaModal({
                       onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
                       onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
                     >
-                      <span>Konect...</span>
+                      <span>Konecta</span>
 
-                      {/* 3 Bolinhas a piscar / carregar */}
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      {/* 3 Bolinhas a carregar/piscar com as cores das ilhas de Cabo Verde */}
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
                         {[0, 1, 2].map(dotIndex => (
                           <motion.span
                             key={dotIndex}
                             style={{
-                              width: 5,
-                              height: 5,
+                              width: 6,
+                              height: 6,
                               borderRadius: '50%',
-                              backgroundColor: '#081DF4',
                               display: 'inline-block',
                             }}
                             animate={{
-                              scale: [0.7, 1.3, 0.7],
-                              opacity: [0.35, 1, 0.35],
+                              scale: [0.75, 1.35, 0.75],
+                              opacity: [0.45, 1, 0.45],
+                              backgroundColor: [
+                                '#ff6b6b', // Santo Antão
+                                '#ffb347', // São Vicente
+                                '#2196f3', // Sal
+                                '#00bcd4', // Santiago
+                                '#ff9800', // Fogo
+                                '#9c27b0', // Boa Vista
+                                '#00e676', // Brava
+                                '#ff6b6b',
+                              ],
                             }}
                             transition={{
-                              duration: 1.1,
+                              duration: 3.2,
                               repeat: Infinity,
                               ease: 'easeInOut',
-                              delay: dotIndex * 0.22,
+                              delay: dotIndex * 0.35,
                             }}
                           />
                         ))}

@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion'
 
 /**
- * Animated Logo for Konecta.cv — Neo-Brutalism Edition (Riddle UI style)
- * In Neo-Brutalism, the logo features bold black outlines, energetic accent colors
- * (#FFD027 electric yellow, #000000 black, #FFFFFF white), and a sharp drop shadow offset.
+ * Animated Logo for Konecta.cv — Neo-Brutalism Clean Edition
+ * Pure vector paths with clean black outlines, electric yellow fill on the K accent,
+ * crisp white & black letters, and NO shadow layers.
  */
 
 export default function AnimatedKonectaLogo({ className = '' }: { className?: string }) {
@@ -40,19 +40,7 @@ export default function AnimatedKonectaLogo({ className = '' }: { className?: st
   ]
 
   return (
-    <div className={`relative flex items-center justify-center ${className}`}>
-      {/* Neo-brutalist shadow duplicate layer */}
-      <div 
-        className="absolute inset-0 translate-x-2 translate-y-2 pointer-events-none opacity-20"
-        style={{ filter: 'grayscale(1)' }}
-      >
-        <svg viewBox="0 0 2615.466 665.228" className="w-full h-auto overflow-visible">
-          {elements.map(el => (
-            <path key={'shadow-' + el.id} d={el.d} fill="#000000" />
-          ))}
-        </svg>
-      </div>
-
+    <div className={`relative flex items-center justify-center w-full ${className}`}>
       <svg
         viewBox="0 0 2615.466 665.228"
         className="w-full h-auto overflow-visible select-none"

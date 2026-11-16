@@ -221,7 +221,7 @@ export default function KonectaModal({
               border: '1px solid rgba(255,255,255,0.12)',
               boxShadow: 'none',
               padding: '24px 24px 20px',
-              overflow: 'visible',
+              overflow: 'hidden', // manter o K watermark contido no card
               boxSizing: 'border-box',
             }}
             initial={{ scale: 0.94, opacity: 0, y: 12 }}
@@ -229,6 +229,36 @@ export default function KonectaModal({
             exit={{ scale: 0.95, opacity: 0, y: 8 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
           >
+            {/* Efeito de background sutil com o K da logo em marca d'água */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
+              animate={{ opacity: 0.045, scale: 1, rotate: 0 }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+              style={{
+                position: 'absolute',
+                right: -25,
+                bottom: -35,
+                width: 220,
+                height: 330,
+                pointerEvents: 'none',
+                zIndex: 0,
+                userSelect: 'none',
+              }}
+            >
+              <svg
+                viewBox="0 0 436.752 665.228"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: '100%', height: '100%' }}
+              >
+                <rect x="0" y="0" width="144.634" height="586.476" fill="#dee054" />
+                <path
+                  d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
+                  fill="#efefef"
+                />
+              </svg>
+            </motion.div>
+
             {/* Top row: Animated K logo + close button */}
             <div
               style={{

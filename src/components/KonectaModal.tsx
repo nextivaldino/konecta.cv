@@ -421,7 +421,7 @@ export default function KonectaModal({
                       onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
                       onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
                     >
-                      <span>Konecta</span>
+                      <span>Konecta-te</span>
 
                       {/* 3 Bolinhas a carregar/piscar com as cores das ilhas de Cabo Verde */}
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>

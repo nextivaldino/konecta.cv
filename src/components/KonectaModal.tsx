@@ -303,36 +303,68 @@ export default function KonectaModal({
                     Queres Konectar-se para poderes receber algumas novidades em breve e participar em algo especial?
                   </p>
 
-                  <button
-                    onClick={() => setStep('form')}
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      padding: '11px 20px',
-                      borderRadius: 999, // estilo pílula
-                      background: '#dee054',
-                      color: '#081DF4',
-                      fontWeight: 700,
-                      fontSize: 13.5,
-                      letterSpacing: '0.02em',
-                      border: 'none',
-                      cursor: 'pointer',
-                      marginBottom: 8,
-                      boxShadow: 'none',
-                      transition: 'filter 0.2s, transform 0.15s',
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
-                    onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
-                  >
-                    Sim, quero participar →
-                  </button>
+                  {/* Botão menor estilo pílula com "Konect..." e bolinhas pulsantes */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                    <motion.button
+                      onClick={() => setStep('form')}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 10,
+                        padding: '9px 24px',
+                        borderRadius: 999, // pílula
+                        background: '#dee054',
+                        color: '#081DF4',
+                        fontWeight: 700,
+                        fontSize: 13,
+                        letterSpacing: '0.04em',
+                        border: 'none',
+                        cursor: 'pointer',
+                        boxShadow: 'none',
+                        transition: 'filter 0.2s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.06)')}
+                      onMouseLeave={e => (e.currentTarget.style.filter = 'none')}
+                    >
+                      <span>Konect...</span>
+
+                      {/* 3 Bolinhas a piscar / carregar */}
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                        {[0, 1, 2].map(dotIndex => (
+                          <motion.span
+                            key={dotIndex}
+                            style={{
+                              width: 5,
+                              height: 5,
+                              borderRadius: '50%',
+                              backgroundColor: '#081DF4',
+                              display: 'inline-block',
+                            }}
+                            animate={{
+                              scale: [0.7, 1.3, 0.7],
+                              opacity: [0.35, 1, 0.35],
+                            }}
+                            transition={{
+                              duration: 1.1,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                              delay: dotIndex * 0.22,
+                            }}
+                          />
+                        ))}
+                      </span>
+                    </motion.button>
+                  </div>
 
                   <button
                     onClick={handleClose}
                     style={{
                       display: 'block',
                       width: '100%',
-                      padding: '9px 24px',
+                      padding: '8px 24px',
                       borderRadius: 999, // estilo pílula
                       background: 'transparent',
                       border: 'none',
@@ -340,6 +372,7 @@ export default function KonectaModal({
                       fontSize: 12.5,
                       cursor: 'pointer',
                       transition: 'color 0.2s',
+                      textAlign: 'center',
                     }}
                     onMouseEnter={e => (e.currentTarget.style.color = 'rgba(239,239,239,0.7)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'rgba(239,239,239,0.35)')}

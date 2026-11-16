@@ -89,11 +89,11 @@ function NeoMetricCard({
   badgeColor: string
 }) {
   return (
-    <div className="p-5 sm:p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5.5px_5.5px_0px_#000] transition-all">
+    <div className="p-5 sm:p-6 bg-white border-2 border-black rounded-[20px] shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5.5px_5.5px_0px_#000] transition-all">
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs font-black uppercase tracking-wider text-[#78716C]">{label}</span>
         <div
-          className="w-9 h-9 rounded-xl border-2 border-black flex items-center justify-center shadow-[1.5px_1.5px_0px_#000]"
+          className="w-9 h-9 rounded-xl border-[1.5px] border-black flex items-center justify-center shadow-[1.5px_1.5px_0px_#000]"
           style={{ backgroundColor: badgeColor }}
         >
           <Icon size={18} strokeWidth={2.5} />
@@ -186,17 +186,17 @@ export default function AdminPage() {
   if (!authed) {
     return (
       <div className="riddle-grid-bg min-h-screen flex items-center justify-center p-5 select-none relative">
-        <div className="w-full max-w-[440px] bg-white border-[3px] border-black rounded-[24px] shadow-[6px_6px_0px_#000] p-8 sm:p-10 relative">
+        <div className="w-full max-w-[440px] bg-white border-2 border-black rounded-[24px] shadow-[6px_6px_0px_#000] p-8 sm:p-10 relative">
           
           {/* Top Decorative OS Window Bar */}
-          <div className="flex items-center justify-between pb-6 mb-6 border-b-[3px] border-black">
+          <div className="flex items-center justify-between pb-6 mb-6 border-b-2 border-black">
             <div className="flex gap-2">
-              <span className="w-3.5 h-3.5 rounded-full border-2 border-black bg-[#E2442F]" />
-              <span className="w-3.5 h-3.5 rounded-full border-2 border-black bg-[#FFD027]" />
-              <span className="w-3.5 h-3.5 rounded-full border-2 border-black bg-[#11A365]" />
+              <span className="w-3.5 h-3.5 rounded-full border-[1.5px] border-black bg-[#E2442F]" />
+              <span className="w-3.5 h-3.5 rounded-full border-[1.5px] border-black bg-[#FFD027]" />
+              <span className="w-3.5 h-3.5 rounded-full border-[1.5px] border-black bg-[#11A365]" />
             </div>
 
-            <div className="px-3 py-1 bg-[#B286FD] border-2 border-black rounded-full text-[11px] font-black uppercase shadow-[1.5px_1.5px_0px_#000]">
+            <div className="px-3 py-1 bg-[#B286FD] border-[1.5px] border-black rounded-full text-[11px] font-black uppercase shadow-[1.5px_1.5px_0px_#000]">
               Admin Security // v1.0
             </div>
           </div>
@@ -204,12 +204,12 @@ export default function AdminPage() {
           <div className="flex flex-col items-center text-center mb-6">
             <div className="mb-3">
               <svg width="26" height="38" viewBox="0 0 436.752 665.228" fill="none">
-                <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="24" />
+                <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="18" />
                 <path
                   d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
                   fill="#FFFFFF"
                   stroke="#000"
-                  strokeWidth="24"
+                  strokeWidth="18"
                 />
               </svg>
             </div>
@@ -218,7 +218,7 @@ export default function AdminPage() {
           </div>
 
           {error && (
-            <div className="mb-6 p-3.5 rounded-xl bg-[#FEE2E2] border-2 border-black text-black font-bold text-xs shadow-[1.5px_1.5px_0px_#000]">
+            <div className="mb-6 p-3.5 rounded-xl bg-[#FEE2E2] border-[1.5px] border-black text-black font-bold text-xs shadow-[1.5px_1.5px_0px_#000]">
               ⚠️ {error}
             </div>
           )}
@@ -235,7 +235,7 @@ export default function AdminPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="admin@konecta.cv"
-                  className="w-full h-12 pl-11 pr-4 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                  className="w-full h-12 pl-11 pr-4 bg-white border-[1.5px] border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function AdminPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full h-12 pl-4 pr-11 bg-white border-2 border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
+                  className="w-full h-12 pl-4 pr-11 bg-white border-[1.5px] border-black rounded-xl font-medium text-sm outline-none shadow-[2px_2px_0px_#000] focus:bg-[#FFFDF5] transition-all"
                   autoFocus
                 />
                 <Lock size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#78716C]" />
@@ -261,7 +261,7 @@ export default function AdminPage() {
               <button
                 type="submit"
                 disabled={loginLoading}
-                className="w-full sm:w-auto inline-flex items-center justify-center min-h-[50px] py-3.5 px-8 rounded-xl bg-[#A2E435] border-2 border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center min-h-[50px] py-3.5 px-8 rounded-xl bg-[#A2E435] border-[1.5px] border-black font-extrabold text-sm uppercase tracking-wider shadow-[3px_3px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1.5px_1.5px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all cursor-pointer"
               >
                 {loginLoading ? 'A verificar...' : 'Entrar no Painel →'}
               </button>
@@ -300,16 +300,16 @@ export default function AdminPage() {
     <div className="riddle-grid-bg min-h-screen text-black flex flex-col font-sans">
       
       {/* ── Top Bar (Riddle UI Navigation Frame) ── */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white border-b-[3px] border-black shadow-[0_3px_0px_#000]">
+      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 bg-white border-b-2 border-black shadow-[0_3px_0px_#000]">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
             <svg width="20" height="28" viewBox="0 0 436.752 665.228" fill="none">
-              <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="24" />
+              <rect x="0" y="0" width="144.634" height="586.476" fill="#A2E435" stroke="#000" strokeWidth="18" />
               <path
                 d="M336.26 55.242 L436.752 159.265 C383.275 210.927 349.215 283.729 349.215 365.506 C349.215 443.677 380.335 513.61 429.725 564.722 L325.716 665.228 C250.266 587.148 204.58 481.179 204.58 365.506 C204.58 244.504 254.572 134.158 336.26 55.242 Z"
                 fill="#FFFFFF"
                 stroke="#000"
-                strokeWidth="24"
+                strokeWidth="18"
               />
             </svg>
             <span className="font-black text-base uppercase tracking-tight">
@@ -318,7 +318,7 @@ export default function AdminPage() {
           </div>
 
           {lastUpdated && (
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#A2E435] border-2 border-black shadow-[1.5px_1.5px_0px_#000]">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#A2E435] border-[1.5px] border-black shadow-[1.5px_1.5px_0px_#000]">
               <span className="w-2 h-2 rounded-full bg-black animate-ping" />
               Sync: {lastUpdated}
             </span>
@@ -329,7 +329,7 @@ export default function AdminPage() {
           <button
             onClick={() => fetchData(token)}
             disabled={loading}
-            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-white border-[1.5px] border-black shadow-[1.5px_1.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
             <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
             <span className="hidden sm:inline">Atualizar</span>
@@ -341,7 +341,7 @@ export default function AdminPage() {
               setToken('')
               setData(null)
             }}
-            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-[#E2442F] text-white border-2 border-black shadow-[1.5px_1.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
+            className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase px-4 py-2.5 rounded-xl bg-[#E2442F] text-white border-[1.5px] border-black shadow-[1.5px_1.5px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer"
           >
             <LogOut size={13} />
             <span>Sair</span>
@@ -350,7 +350,7 @@ export default function AdminPage() {
           {/* Admin Avatar Pill */}
           <div
             title={adminEmail || email}
-            className="w-9 h-9 rounded-full bg-[#FFD027] border-2 border-black flex items-center justify-center font-black text-sm shadow-[1.5px_1.5px_0px_#000]"
+            className="w-9 h-9 rounded-full bg-[#FFD027] border-[1.5px] border-black flex items-center justify-center font-black text-sm shadow-[1.5px_1.5px_0px_#000]"
           >
             {(adminEmail || email).charAt(0).toUpperCase()}
           </div>
@@ -361,7 +361,7 @@ export default function AdminPage() {
       <main className="flex-1 max-w-6xl w-full mx-auto p-5 sm:p-8 flex flex-col gap-6">
         
         {/* Title banner */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
           <div>
             <div className="inline-block px-2.5 py-0.5 bg-[#B286FD] border border-black rounded text-[10px] font-black uppercase mb-1.5">
               Dashboard de Controlo
@@ -376,7 +376,7 @@ export default function AdminPage() {
 
           <a
             href="/"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFD027] border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FFD027] border-[1.5px] border-black rounded-xl text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
           >
             <span>Ver Landing Page</span>
             <ArrowUpRight size={14} />
@@ -425,7 +425,7 @@ export default function AdminPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`flex items-center justify-center gap-2.5 min-h-[46px] px-6 py-3 rounded-xl border-2 border-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${isActive ? 'bg-black text-white shadow-[2px_2px_0px_' + tab.color + ']' : 'bg-white text-black shadow-[2px_2px_0px_#000] hover:bg-[#F5F5F4]'}`}
+                className={`flex items-center justify-center gap-2.5 min-h-[46px] px-6 py-3 rounded-xl border-[1.5px] border-black font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${isActive ? 'bg-black text-white shadow-[2px_2px_0px_' + tab.color + ']' : 'bg-white text-black shadow-[2px_2px_0px_#000] hover:bg-[#F5F5F4]'}`}
               >
                 <tab.icon size={15} />
                 <span>{tab.label}</span>
@@ -436,10 +436,10 @@ export default function AdminPage() {
 
         {/* TAB 1: REGISTRATIONS */}
         {activeTab === 'registrations' && data && (
-          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden flex flex-col">
+          <div className="bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden flex flex-col">
             
             {/* Search & Filter Bar */}
-            <div className="p-4 sm:p-5 border-b-2 border-black flex flex-col sm:flex-row gap-3.5 items-stretch sm:items-center justify-between bg-[#F5F5F4]">
+            <div className="p-4 sm:p-5 border-b-[1.5px] border-black flex flex-col sm:flex-row gap-3.5 items-stretch sm:items-center justify-between bg-[#F5F5F4]">
               <div className="relative flex-1 max-w-md">
                 <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#78716C]" />
                 <input
@@ -447,7 +447,7 @@ export default function AdminPage() {
                   placeholder="Pesquisar por nome, telefone ou ilha..."
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
-                  className="w-full h-11 bg-white border-2 border-black pl-10 pr-4 text-xs font-semibold rounded-xl text-black placeholder-[#78716C] outline-none shadow-[1.5px_1.5px_0px_#000]"
+                  className="w-full h-11 bg-white border-[1.5px] border-black pl-10 pr-4 text-xs font-semibold rounded-xl text-black placeholder-[#78716C] outline-none shadow-[1.5px_1.5px_0px_#000]"
                 />
               </div>
 
@@ -456,7 +456,7 @@ export default function AdminPage() {
                 <select
                   value={filterIsland}
                   onChange={e => setFilterIsland(e.target.value)}
-                  className="h-11 bg-white border-2 border-black text-xs font-bold rounded-xl px-4 text-black outline-none shadow-[1.5px_1.5px_0px_#000] cursor-pointer"
+                  className="h-11 bg-white border-[1.5px] border-black text-xs font-bold rounded-xl px-4 text-black outline-none shadow-[1.5px_1.5px_0px_#000] cursor-pointer"
                 >
                   <option value="ALL">Todas as Ilhas</option>
                   <option value="Santiago">Santiago</option>
@@ -543,9 +543,9 @@ export default function AdminPage() {
         {/* TAB 2: OVERVIEW */}
         {activeTab === 'overview' && data && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
+            <div className="p-6 bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-7 h-7 rounded-lg border-2 border-black bg-[#FFD027] flex items-center justify-center shadow-[1px_1px_0px_#000]">
+                <div className="w-7 h-7 rounded-lg border-[1.5px] border-black bg-[#FFD027] flex items-center justify-center shadow-[1px_1px_0px_#000]">
                   <MapPin size={15} />
                 </div>
                 <h3 className="text-sm font-black uppercase">Inscrições por Ilha</h3>
@@ -557,9 +557,9 @@ export default function AdminPage() {
               )}
             </div>
 
-            <div className="p-6 bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
+            <div className="p-6 bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000]">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-7 h-7 rounded-lg border-2 border-black bg-[#60A5F9] flex items-center justify-center shadow-[1px_1px_0px_#000]">
+                <div className="w-7 h-7 rounded-lg border-[1.5px] border-black bg-[#60A5F9] flex items-center justify-center shadow-[1px_1px_0px_#000]">
                   <Globe size={15} />
                 </div>
                 <h3 className="text-sm font-black uppercase">Origem do Tráfego</h3>
@@ -575,8 +575,8 @@ export default function AdminPage() {
 
         {/* TAB 3: VISITORS */}
         {activeTab === 'visitors' && data && (
-          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden">
-            <div className="p-4 sm:p-5 border-b-2 border-black bg-[#F5F5F4] flex items-center justify-between">
+          <div className="bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden">
+            <div className="p-4 sm:p-5 border-b-[1.5px] border-black bg-[#F5F5F4] flex items-center justify-between">
               <h3 className="text-sm font-black uppercase">Tráfego Recente ({data.recentVisitors.length})</h3>
               <span className="text-xs font-mono font-bold px-2 py-0.5 bg-[#60A5F9] border border-black rounded">
                 IPs Ativos
@@ -585,7 +585,7 @@ export default function AdminPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left">
                 <thead>
-                  <tr className="border-b-2 border-black bg-white uppercase text-[10px] font-black text-[#78716C]">
+                  <tr className="border-b-[1.5px] border-black bg-white uppercase text-[10px] font-black text-[#78716C]">
                     <th className="px-6 py-3">Data/Hora</th>
                     <th className="px-6 py-3">IP de Origem</th>
                     <th className="px-6 py-3">País</th>
@@ -613,7 +613,7 @@ export default function AdminPage() {
 
         {/* TAB 4: INTRUSIONS */}
         {activeTab === 'intrusions' && data && (
-          <div className="bg-white border-[3px] border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden">
+          <div className="bg-white border-2 border-black rounded-[20px] shadow-[4.5px_4.5px_0px_#000] overflow-hidden">
             <div className="p-4 sm:p-5 border-b-2 border-black bg-[#F5F5F4] flex items-center justify-between">
               <h3 className="text-sm font-black uppercase text-[#E2442F]">
                 Auditoria de Segurança ({data.recentIntrusions.length})

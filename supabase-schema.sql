@@ -25,12 +25,16 @@ CREATE TABLE IF NOT EXISTS public.registrations (
   name        TEXT NOT NULL,
   phone       TEXT DEFAULT '',
   island      TEXT DEFAULT '',
+  email       TEXT DEFAULT '',
+  has_account BOOLEAN DEFAULT false,
   ip_address  TEXT DEFAULT '',
   country     TEXT DEFAULT 'Unknown'
 );
 
--- Adiciona a coluna phone se já existir a tabela
+-- Adiciona colunas se já existir a tabela
 ALTER TABLE public.registrations ADD COLUMN IF NOT EXISTS phone TEXT DEFAULT '';
+ALTER TABLE public.registrations ADD COLUMN IF NOT EXISTS email TEXT DEFAULT '';
+ALTER TABLE public.registrations ADD COLUMN IF NOT EXISTS has_account BOOLEAN DEFAULT false;
 
 -- Índices para performance
 CREATE INDEX IF NOT EXISTS idx_visitors_created_at ON public.visitors(created_at DESC);
